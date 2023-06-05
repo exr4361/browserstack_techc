@@ -59,10 +59,8 @@ def tech_challenge(browser):
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
         driver.maximize_window()
-        mobile_menu = driver.find_element_by_class_name("primary-menu-toggle")
         login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
         login_button.click()
-        mobile_menu.click()
                 
         # Login using your trial credentials
         user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
@@ -72,7 +70,6 @@ def tech_challenge(browser):
         pass_input.send_keys(Keys.RETURN)
 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-        mobile_menu.click()
         invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
         invite_link.click()
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
@@ -82,7 +79,6 @@ def tech_challenge(browser):
         
 
         # 3. Log out of BrowserStack
-        mobile_menu.click()
         user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
         user_account.click()
         logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link")))
