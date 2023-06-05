@@ -34,6 +34,7 @@ browsers = [
         "seleniumVersion" : "4.0.0",
         "browserName": "firefox",
         "browserVersion": "latest"
+        "build": build_name,
     },
     {
         "os": "Windows",
@@ -42,6 +43,7 @@ browsers = [
         "seleniumVersion" : "4.0.0",
         "browserName": "chrome",
         "browserVersion": "latest"
+        "build": build_name,
     },
     {
         "osVersion": "12.1",
@@ -49,6 +51,7 @@ browsers = [
         "sessionName": "BStack parallel python: " + build_name,
         "seleniumVersion" : "4.0.0",
         "browserName": "samsung",
+        "build": build_name,
     },
 ]
 
