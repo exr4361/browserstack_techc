@@ -55,21 +55,65 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  try:
-        # 1. Go to homepage and login to account
+  if "deviceName" not in browser:
+      try:
+            # 1. Go to homepage and login to account
+            driver.get("https://www.browserstack.com/")
+            driver.maximize_window()
+            login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
+            login_button.click()
+
+            # Login using your trial credentials
+            user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
+            user_input.send_keys(bs_email)
+            pass_input = driver.find_element_by_id("user_password")
+            pass_input.send_keys(bs_password)
+            pass_input.send_keys(Keys.RETURN)
+
+            # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
+            invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
+            invite_link.click()
+            assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+            invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
+            invite_url = invite_link.get_attribute("innerHTML")
+            print("URL to invite users:", invite_url)
+
+            # 3. Log out of BrowserStack
+            user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
+            user_account.click()
+            logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link")))
+            logout_button.click()
+
+            # For marking test as passed
+            driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
+
+            # Close the browser
+            driver.quit()
+
+      except NoSuchElementException as err:
+            message = "Exception: " + str(err.__class__) + str(err.msg)
+            driver.execute_script(
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+      except Exception as err:
+            message = "Exception: " + str(err.__class__) + str(err.msg)
+            driver.execute_script(
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+            
+  if "deviceName" in browser:
+    try:
         driver.get("https://www.browserstack.com/")
-        driver.maximize_window()
+        menu_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "primary-menu-toggle")))
+        menu_button.click()
         login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
         login_button.click()
-                
-        # Login using your trial credentials
+        
         user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
         pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
-
-        # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
+        
+        menu_button.click()
         invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
         invite_link.click()
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
@@ -77,27 +121,21 @@ def tech_challenge(browser):
         invite_url = invite_link.get_attribute("innerHTML")
         print("URL to invite users:", invite_url)
         
-
-        # 3. Log out of BrowserStack
-        user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
-        user_account.click()
-        logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link")))
-        logout_button.click()
-                   
         # For marking test as passed
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
-        
+
         # Close the browser
         driver.quit()
-    
-  except NoSuchElementException as err:
+
+    except NoSuchElementException as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
-            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-  except Exception as err:
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    except Exception as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
-            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+        
         
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
