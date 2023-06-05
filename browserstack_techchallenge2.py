@@ -54,7 +54,7 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  try:
+    try:
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
         time.sleep(3)  # Wait for the page to load
