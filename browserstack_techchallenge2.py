@@ -51,6 +51,7 @@ browsers = [
 
 # Run function for test 
 def tech_challenge(browser):
+  timeout = 5
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
