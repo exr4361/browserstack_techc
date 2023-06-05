@@ -62,7 +62,7 @@ def tech_challenge(browser):
         driver.maximize_window()
         login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
         login_button.click()
-        mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "primary-menu-toggle")))
+        mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "primary-menu-toggle")))
         if browser['browserName'].lower() == 'samsung':
             mobile_menu.click()
             login_button.click()
