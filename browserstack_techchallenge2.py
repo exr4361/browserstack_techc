@@ -60,7 +60,7 @@ def tech_challenge(browser):
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
         driver.maximize_window()
-        login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.class, "sign-in-link")))
+        login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
         login_button.click()
 
         # Login using your trial credentials
