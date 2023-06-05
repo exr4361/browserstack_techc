@@ -49,24 +49,53 @@ browsers = [
     }
 ]
 
-#run_session function searches for 'BrowserStack' on google.com
-def run_session(browser):
+# Run function for test 
+def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  driver.get("https://www.google.com")
-  if not "Google" in driver.title:
-      raise Exception("Unable to load google page!")
-  elem = driver.find_element_by_name("q")
-  elem.send_keys("BrowserStack")
-  elem.submit()
   try:
-      WebDriverWait(driver, 5).until(EC.title_contains("BrowserStack"))
-      driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Title matched!"}}')
-  except TimeoutException:
-      driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "Title not matched"}}')
-  print(driver.title)
-  driver.quit()
-#The Thread function takes run_session function and each set of capability from the caps array as an argument to run each session parallelly
+        # 1. Go to homepage and login to account
+        driver.get("https://www.browserstack.com/")
+        time.sleep(3)  # Wait for the page to load
+        login_button = driver.find_element_by_link_text("Sign in")
+        login_button.click()
+        time.sleep(5)  # Wait for the login page to load
+
+        # Login using your trial credentials
+        user_input = driver.find_element_by_id("user_email_login")
+        user_input.send_keys(bs_email)
+        pass_input = driver.find_element_by_id("user_password")
+        pass_input.send_keys(bs_password)
+        pass_input.send_keys(Keys.RETURN)
+
+        # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL
+        time.sleep(5)  # Wait for the login to complete and the homepage to load
+        invite_link = driver.find_element_by_link_text("Invite team")
+        assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+        invite_url = invite_link.get_attribute("href")
+        print("URL to invite users:", invite_url)
+
+        # 3. Log out of BrowserStack
+        user_account = driver.find_element_by_class_name("account-dropdown-toggle")
+        user_account.click()
+        time.sleep(1)  # Wait for the dropdown menu to open
+        logout_button = driver.find_element_by_link_text("Logout")
+        logout_button.click()
+    
+    except NoSuchElementException as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    except Exception as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+        
+    # For marking test as passed
+    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
+    
+    # Close the browser
+    driver.quit()
 for browser in browsers:
   Thread(target=run_session, args=(browser,)).start()
