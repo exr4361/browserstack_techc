@@ -14,7 +14,7 @@
                  sh "chmod +x /var/tmp/BrowserStackLocal"
                  sh '/var/tmp/BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start'
                  // Test Script
-                 sh 'python3 browserstechchallenge.py' 
+                 sh 'python3 browserstack_techchallenge2.py' 
                  sh '/var/tmp/BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop'
                  
              }
