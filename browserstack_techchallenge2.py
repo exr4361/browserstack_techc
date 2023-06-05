@@ -64,4 +64,4 @@ def run_session(browser):
   driver.quit()
 #The Thread function takes run_session function and each set of capability from the caps array as an argument to run each session parallelly
 for browser in browsers:
-  Thread(target=run_session, args=(cap,)).start()
+  Thread(target=run_session, args=(browser,)).start()
