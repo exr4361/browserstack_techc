@@ -25,22 +25,23 @@ browsers = [
     {
         "os": "OS X",
         "osVersion": "Ventura",
-        "sessionName": "BStack parallel python",
+        "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest"
     },
     {
         "os": "Windows",
         "osVersion": "10",
-        "sessionName": "BStack parallel python",
+        "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest"
     },
     {
         "osVersion": "12.1",
         "deviceName": "Samsung Galaxy S22",
-        "sessionName": "BStack parallel python",
+        "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
+        "realMobile": 'true',
     },
 ]
 
