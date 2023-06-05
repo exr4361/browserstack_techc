@@ -18,6 +18,7 @@ browserstack_local = os.getenv("BROWSERSTACK_LOCAL")
 browserstack_local_identifier = os.getenv("BROWSERSTACK_LOCAL_IDENTIFIER")
 URL = "https://hub.browserstack.com/wd/hub"
 
+bs_local_args = { "key": access_key, "proxyHost": "127.0.0.1", "proxyPort": "8000"}
 
 # BrowserStack Trial credentials
 bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
