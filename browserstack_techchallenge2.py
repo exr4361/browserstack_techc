@@ -25,6 +25,8 @@ bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfil
 bs_password = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
 print("email:",bs_email);
 
+
+
 # Set up capabilities for each browser
 browsers = [
     {
@@ -34,7 +36,7 @@ browsers = [
         "seleniumVersion" : "4.0.0",
         "browserName": "firefox",
         "browserVersion": "latest",
-        "build": build_name,
+        "buildName": build_name,
     },
     {
         "os": "Windows",
@@ -43,7 +45,7 @@ browsers = [
         "seleniumVersion" : "4.0.0",
         "browserName": "chrome",
         "browserVersion": "latest",
-        "build": build_name,
+        "buildName": build_name,
     },
     {
         "osVersion": "12.1",
@@ -51,7 +53,7 @@ browsers = [
         "sessionName": "BStack parallel python: " + build_name,
         "seleniumVersion" : "4.0.0",
         "browserName": "samsung",
-        "build": build_name,
+        "buildName": build_name,
     },
 ]
 
@@ -70,11 +72,12 @@ def tech_challenge(browser):
     bstack_options = {
         "osVersion": browser["osVersion"],
         "sessionName": browser["sessionName"],
+        "buildName": browser["buildName"],
         "build": build_name,
         "userName": username,
         "accessKey": access_key,
         "browserstack.local": browserstack_local,
-        "browserstack.localIdentifier": browserstack_local_identifier,
+        "browserstack.localIdentifier": browserstack_local_identifier
     }
     if "os" in browser:
         bstack_options["os"] = browser["os"]
