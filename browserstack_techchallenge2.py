@@ -60,41 +60,37 @@ def tech_challenge(browser):
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
         driver.maximize_window()
+        mobile_menu = driver.find_element_by_class_name("primary-menu-toggle")
+        if mobile_menu.isDisplayed() is true:
+            mobile_menu.click()
         login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
         login_button.click()
-        mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "primary-menu-toggle")))
-        if browser['browserName'].lower() == 'samsung':
-            mobile_menu.click()
-            login_button.click()
-            
-
+                
         # Login using your trial credentials
-        user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login"))).click()
+        user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
         pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
+        if mobile_menu.isDisplayed() is true:
+            mobile_menu.click()
         invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
         invite_link.click()
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
-        if browser['browserName'].lower() == 'samsung':
-            mobile_menu.click()
-            invite_link.click()
         invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
         invite_url = invite_link.get_attribute("innerHTML")
         print("URL to invite users:", invite_url)
         
 
         # 3. Log out of BrowserStack
+        if mobile_menu.isDisplayed() is true:
+            mobile_menu.click()
         user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
         user_account.click()
         logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link")))
         logout_button.click()
-        if browser['browserName'].lower() == 'samsung':
-            mobile_menu.click()
-            logout_button.click()
                    
         # For marking test as passed
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
