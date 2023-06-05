@@ -1,2 +1,3 @@
 # browserstack_techc
-Attempt 2 for Browserstack Challenge
+Repository for BrowserStack Tech Challenge - 06/05/2023
+Attempt 2 on Browserstack Challenge using BS Local configurations
