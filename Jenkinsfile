@@ -6,7 +6,7 @@
                    BS_Credentials = credentials('Trial')
                }
            steps {
-             browserstack(credentialsId: 'BS_Creds', localConfig: [localOptions: '--force, --proxy-user', localPath: '']) {
+             browserstack(credentialsId: 'BS_Creds', localConfig: [localOptions: '', localPath: '']) {
                  echo 'hello bs'
                  // BrowserStack Local configuration
                  sh 'curl -sS https://www.browserstack.com/browserstack-local/BrowserStackLocal-darwin-x64.zip > /var/tmp/BrowserStackLocal.zip'
