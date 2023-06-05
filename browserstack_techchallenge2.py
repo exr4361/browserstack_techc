@@ -58,7 +58,7 @@ def tech_challenge(browser):
   try:
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
-        login_button = driver.find_element_by_link_text("Sign in")
+        login_button = driver.find_element_by_class_name("sign-in-link")
         WebDriverWait(driver, timeout).until(login_button) # Wait until homepage has loaded
         login_button.click()
 
@@ -71,7 +71,7 @@ def tech_challenge(browser):
         pass_input.send_keys(Keys.RETURN)
 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-        invite_link = driver.find_element_by_link_text("Invite team")
+        invite_link = driver.find_element_by_id("invite-link")
         WebDriverWait(driver, timeout).until(invite_link) # Wait for the login to complete and the homepage to load
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_url = invite_link.get_attribute("href")
