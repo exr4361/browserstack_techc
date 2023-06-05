@@ -57,21 +57,21 @@ def tech_challenge(browser):
   try:
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
-        time.sleep(3)  # Wait for the page to load
         login_button = driver.find_element_by_link_text("Sign in")
+        WebDriverWait(driver, timeout).until(login_button) # Wait until homepage has loaded
         login_button.click()
-        time.sleep(5)  # Wait for the login page to load
 
         # Login using your trial credentials
         user_input = driver.find_element_by_id("user_email_login")
+        WebDriverWait(driver, timeout).until(user_input) # Wait until login page has loaded
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
         pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
 
-        # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL
-        time.sleep(5)  # Wait for the login to complete and the homepage to load
+        # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
         invite_link = driver.find_element_by_link_text("Invite team")
+        WebDriverWait(driver, timeout).until(invite_link) # Wait for the login to complete and the homepage to load
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_url = invite_link.get_attribute("href")
         print("URL to invite users:", invite_url)
