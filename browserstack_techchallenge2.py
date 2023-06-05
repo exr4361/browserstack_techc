@@ -40,7 +40,7 @@ browsers = [
     },
     {
         "deviceName": "Samsung Galaxy S22",
-        "osVersion": "12.1",
+        "osVersion": "12.0",
         "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
         "deviceOrientation": "portrait",
