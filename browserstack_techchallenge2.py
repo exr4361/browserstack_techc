@@ -42,7 +42,7 @@ browsers = [
         "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
         "realMobile": 'true',
-    },
+    }
 ]
 
 #run_session function searches for 'BrowserStack' on google.com
