@@ -61,28 +61,28 @@ def tech_challenge(browser):
   try:
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
-        login_button = driver.find_element_by_class_name("sign-in-link")
+        WebElement login_button = driver.find_element_by_class_name("sign-in-link")
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((login_button))).click()
 
         # Login using your trial credentials
-        user_input = driver.find_element_by_id("user_email_login")
+        WebElement user_input = driver.find_element_by_id("user_email_login")
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((user_input)))
         user_input.send_keys(bs_email)
-        pass_input = driver.find_element_by_id("user_password")
+        WebElement pass_input = driver.find_element_by_id("user_password")
         pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-        invite_link = driver.find_element_by_id("invite-link")
+        WebElement invite_link = driver.find_element_by_id("invite-link")
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((invite_link))) # Wait for the login to complete and the homepage to load
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_url = invite_link.get_attribute("href")
         print("URL to invite users:", invite_url)
 
         # 3. Log out of BrowserStack
-        user_account = driver.find_element_by_class_name("account-dropdown-toggle")
+        WebElement user_account = driver.find_element_by_class_name("account-dropdown-toggle")
         WebDriverWait(driver, 1).until(EC.presence_of_element_located((user_account))).click() # Wait for the dropdown menu to open
-        logout_button = driver.find_element_by_link_text("Logout")
+        WebElement logout_button = driver.find_element_by_link_text("Logout")
         logout_button.click()
     
   except NoSuchElementException as err:
