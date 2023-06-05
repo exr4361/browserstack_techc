@@ -7,8 +7,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from appium.options.ios import XCUITestOptions
-from appium.webdriver.common.appiumby import AppiumBy
 import os
 
 # Environment Variables
@@ -61,28 +59,27 @@ def tech_challenge(browser):
   try:
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
-        WebElement login_button = driver.find_element_by_class_name("sign-in-link")
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((login_button))).click()
+        driver.maximize_window()
+        login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.class, "sign-in-link")))
+        login_button.click()
 
         # Login using your trial credentials
-        WebElement user_input = driver.find_element_by_id("user_email_login")
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((user_input)))
+        user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
         user_input.send_keys(bs_email)
-        WebElement pass_input = driver.find_element_by_id("user_password")
+        pass_input = driver.find_element_by_id("user_password")
         pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-        WebElement invite_link = driver.find_element_by_id("invite-link")
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((invite_link))) # Wait for the login to complete and the homepage to load
+        invite_link = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "invite-link"))).click() # Wait for the login to complete and the homepage to load
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_url = invite_link.get_attribute("href")
         print("URL to invite users:", invite_url)
 
         # 3. Log out of BrowserStack
-        WebElement user_account = driver.find_element_by_class_name("account-dropdown-toggle")
-        WebDriverWait(driver, 1).until(EC.presence_of_element_located((user_account))).click() # Wait for the dropdown menu to open
-        WebElement logout_button = driver.find_element_by_link_text("Logout")
+        user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
+        user_account.click()
+        logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link"))).click()
         logout_button.click()
     
   except NoSuchElementException as err:
