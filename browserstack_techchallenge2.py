@@ -6,6 +6,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from appium.options.ios import XCUITestOptions
+from appium.webdriver.common.appiumby import AppiumBy
 import os
 
 # Environment Variables
