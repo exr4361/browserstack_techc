@@ -92,10 +92,10 @@ def tech_challenge(browser):
         driver.execute_script(
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
         
-    # For marking test as passed
-    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
+  # For marking test as passed
+  driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
     
-    # Close the browser
-    driver.quit()
+  # Close the browser
+  driver.quit()
 for browser in browsers:
   Thread(target=run_session, args=(browser,)).start()
