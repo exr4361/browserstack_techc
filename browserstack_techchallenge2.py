@@ -52,7 +52,6 @@ browsers = [
 
 # Run function for test 
 def tech_challenge(browser):
-  timeout = 5
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
@@ -61,10 +60,9 @@ def tech_challenge(browser):
         driver.get("https://www.browserstack.com/")
         driver.maximize_window()
         mobile_menu = driver.find_element_by_class_name("primary-menu-toggle")
-        if mobile_menu.isDisplayed() is true:
-            mobile_menu.click()
         login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
         login_button.click()
+        mobile_menu.click()
                 
         # Login using your trial credentials
         user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
@@ -74,8 +72,7 @@ def tech_challenge(browser):
         pass_input.send_keys(Keys.RETURN)
 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-        if mobile_menu.isDisplayed() is true:
-            mobile_menu.click()
+        mobile_menu.click()
         invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
         invite_link.click()
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
@@ -85,8 +82,7 @@ def tech_challenge(browser):
         
 
         # 3. Log out of BrowserStack
-        if mobile_menu.isDisplayed() is true:
-            mobile_menu.click()
+        mobile_menu.click()
         user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
         user_account.click()
         logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link")))
