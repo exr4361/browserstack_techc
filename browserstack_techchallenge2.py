@@ -65,7 +65,7 @@ def tech_challenge(browser):
         if mobile_menu.isDisplayed() is true:
             mobile_menu.click()
             login_button.click()
-         else: 
+        else: 
             login_button.click()
 
         # Login using your trial credentials
@@ -81,7 +81,7 @@ def tech_challenge(browser):
         if mobile_menu is true:
             mobile_menu.click()
             invite_link.click()
-         else:
+        else:
             invite_link.click()
         invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
         invite_url = invite_link.get_attribute("innerHTML")
