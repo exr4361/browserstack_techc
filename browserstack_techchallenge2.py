@@ -6,34 +6,49 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# This array 'caps' defines the capabilities browser, device and OS combinations where the test will run
-caps=[{
-      'os_version': '10',
-      'os': 'Windows',
-      'browser': 'chrome',
-      'browser_version': 'latest',
-      'name': 'Parallel Test1', # test name
-      'build': 'browserstack-build-1' # Your tests will be organized within this build
-      },
-      {
-      'device': 'Google Pixel 5',
-      'os_browser': '11.0',
-      'real_mobile': 'true',
-      'name': 'Parallel Test2',
-      'build': 'browserstack-build-1'
-      },
-      {
-      'device': 'iPhone 12 Pro',
-      'os_browser': '14',
-      'real_mobile': 'true',
-      'name': 'Parallel Test3',
-      'build': 'browserstack-build-1'
-}]   
+import os
+
+# Environment Variables
+BS_USERNAME = os.environ.get(
+    "BROWSERSTACK_USERNAME")
+BS_ACCESS_KEY = os.environ.get(
+    "BROWSERSTACK_ACCESS_KEY")
+URL = "https://{}:{}@hub.browserstack.com/wd/hub".format(BS_USERNAME, BS_ACCESS_KEY)
+BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
+
+# BrowserStack Trial credentials
+bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
+bs_password = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
+
+# Set up capabilities for each browser
+browsers = [
+    {
+        "os": "OS X",
+        "osVersion": "Ventura",
+        "sessionName": "BStack parallel python",
+        "browserName": "firefox",
+        "browserVersion": "latest"
+    },
+    {
+        "os": "Windows",
+        "osVersion": "10",
+        "sessionName": "BStack parallel python",
+        "browserName": "chrome",
+        "browserVersion": "latest"
+    },
+    {
+        "osVersion": "12.1",
+        "deviceName": "Samsung Galaxy S22",
+        "sessionName": "BStack parallel python",
+        "browserName": "samsung",
+    },
+]
+
 #run_session function searches for 'BrowserStack' on google.com
-def run_session(desired_cap):
+def run_session(browser):
   driver = webdriver.Remote(
-      command_executor='https://efmajacksonrosar_JmnpIj:xrzmJaUg3zXydzsiwcCG@hub-cloud.browserstack.com/wd/hub',
-      desired_capabilities=desired_cap)
+      command_executor=URL,
+      desired_capabilities=browser)
   driver.get("https://www.google.com")
   if not "Google" in driver.title:
       raise Exception("Unable to load google page!")
@@ -48,5 +63,5 @@ def run_session(desired_cap):
   print(driver.title)
   driver.quit()
 #The Thread function takes run_session function and each set of capability from the caps array as an argument to run each session parallelly
-for cap in caps:
+for browser in browsers:
   Thread(target=run_session, args=(cap,)).start()
