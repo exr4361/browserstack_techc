@@ -69,7 +69,7 @@ def tech_challenge(browser):
             
 
         # Login using your trial credentials
-        user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
+        user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login"))).click()
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
         pass_input.send_keys(bs_password)
