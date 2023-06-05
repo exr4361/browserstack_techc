@@ -98,4 +98,4 @@ def tech_challenge(browser):
   # Close the browser
   driver.quit()
 for browser in browsers:
-  Thread(target=run_session, args=(browser,)).start()
+  Thread(target=tech_challenge, args=(browser,)).start()
