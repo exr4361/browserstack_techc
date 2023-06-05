@@ -14,7 +14,7 @@
                  sh "chmod +x /var/tmp/BrowserStackLocal"
                  sh '/var/tmp/BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start'
                  // Test Script
-                 sh 'pip3 install --upgrade pip'
+                 sh 'pip install --upgrade pip'
                  sh 'pip3 install -r requirements.txt --user'
                  sh 'pip3 install urllib3==1.26.6 --user'
                  sh 'python3 browserstack_techchallenge2.py'
