@@ -75,7 +75,7 @@ def tech_challenge(browser):
             invite_link.click()
             assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
             invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
-            invite_url = invite_link.get_attribute("innerHTML")
+            invite_url = invite_page.get_attribute("innerHTML")
             print("URL to invite users:", invite_url)
 
             # 3. Log out of BrowserStack
@@ -118,7 +118,7 @@ def tech_challenge(browser):
         invite_link.click()
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
-        invite_url = invite_link.get_attribute("innerHTML")
+        invite_url = invite_page.get_attribute("innerHTML")
         print("URL to invite users:", invite_url)
         
         # For marking test as passed
