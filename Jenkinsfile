@@ -16,7 +16,8 @@
                  // Test Script
                  sh 'pip3 install -r requirements.txt --user'
                  sh 'pip3 install urllib3==1.26.6 --user'
-                 sh 'python3 browserstack_techchallenge2.py' 
+                 sh 'python3 browserstack_techchallenge2.py'
+                 sh 'node parallel.js'
                  sh '/var/tmp/BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop'
                  
              }
