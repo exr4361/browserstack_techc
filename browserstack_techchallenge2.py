@@ -33,7 +33,7 @@ browsers = [
         "sessionName": "BStack parallel python: " + build_name,
         "seleniumVersion" : "4.0.0",
         "browserName": "firefox",
-        "browserVersion": "latest"
+        "browserVersion": "latest",
         "build": build_name,
     },
     {
@@ -42,7 +42,7 @@ browsers = [
         "sessionName": "BStack parallel python: " + build_name,
         "seleniumVersion" : "4.0.0",
         "browserName": "chrome",
-        "browserVersion": "latest"
+        "browserVersion": "latest",
         "build": build_name,
     },
     {
