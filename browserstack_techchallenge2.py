@@ -54,7 +54,7 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-    try:
+  try:
         # 1. Go to homepage and login to account
         driver.get("https://www.browserstack.com/")
         time.sleep(3)  # Wait for the page to load
@@ -83,11 +83,11 @@ def tech_challenge(browser):
         logout_button = driver.find_element_by_link_text("Logout")
         logout_button.click()
     
-    except NoSuchElementException as err:
+  except NoSuchElementException as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-    except Exception as err:
+  except Exception as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
