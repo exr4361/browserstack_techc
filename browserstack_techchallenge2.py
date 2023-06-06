@@ -61,7 +61,7 @@ def tech_challenge(browser):
       desired_capabilities=browser)
 
     # 1. Go to homepage
-    driver.get("https://www.browserstack.com/")
+  driver.get("https://www.browserstack.com/")
         
       try: # Mobile only test
             mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
