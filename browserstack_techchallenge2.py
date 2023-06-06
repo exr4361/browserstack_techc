@@ -23,7 +23,7 @@ capabilities = [
     {
         "os": "OS X",
         "osVersion": "Monterey",
-        "buildName": BS_BUILD_NAME,
+        "build": BS_BUILD_NAME,
         "sessionName": "BStack parallel python",
         "browserName": "chrome",
         "browserVersion": "latest"
@@ -31,7 +31,7 @@ capabilities = [
     {
         "os": "Windows",
         "osVersion": "11",
-        "buildName": BS_BUILD_NAME,
+        "build": BS_BUILD_NAME,
         "sessionName": "BStack parallel python",
         "browserName": "firefox",
         "browserVersion": "latest"
@@ -39,7 +39,7 @@ capabilities = [
     {
         "osVersion": "10",
         "deviceName": "Samsung Galaxy S20",
-        "buildName": BS_BUILD_NAME,
+        "build": BS_BUILD_NAME,
         "sessionName": "BStack parallel python",
         "browserName": "chrome",
     },
