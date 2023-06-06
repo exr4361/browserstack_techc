@@ -82,7 +82,7 @@ def tech_challenge(browser):
                 pass_input.send_keys(Keys.RETURN)
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-                driver.find_element(By.ID, "primary-menu-toggle").click()
+                driver.find_element(By.CLASS_NAME, "collapse-toggle").click()
                 invite_link = find_element(By.LINK_TEXT, "Invite team")
                 invite_link.click()
                 invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
@@ -90,7 +90,7 @@ def tech_challenge(browser):
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
-                driver.find_element(By.ID, "primary-menu-toggle").click()
+                driver.find_element(By.CLASS_NAME, "collapse-toggle").click()
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
                                                          
