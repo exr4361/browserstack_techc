@@ -59,61 +59,81 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  if "deviceName" not in browser:
-      try:
-            # 1. Go to homepage and login to account
-            driver.get("https://www.browserstack.com/")
-            login_button = driver.find_element(By.LINK_TEXT, "Sign in")
-            mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
-            
-            if login_button.is_displayed():
-                try: # Desktop
-                    login_button.click() 
-                except: # Mobile 
-                    mobile_menu.click() 
-                    login_button.click()
 
-            # Login using your trial credentials
-            user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
-            user_input.send_keys(bs_email)
-            pass_input = driver.find_element_by_id("user_password")
-            pass_input.send_keys(bs_password)
-            pass_input.send_keys(Keys.RETURN)
-
-            # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-            invite_link = find_element(By.LINK_TEXT, "Invite team")
-            
-            if invite_link.is_displayed():
-                try: # Desktop
-                    invite_link.click()
-                except: # Mobile
-                    assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
-                    mobile.menu.click()
-                    invite_link.click() 
-            invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
-            invite_url = invite_page.get_attribute('innerHTML')
-            print("URL to invite users:", invite_url)
-
-            # 3. Log out of BrowserStack
-            logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
-            if logout_button.is_displayed():
-                try: # Mobile
-                    mobile_menu.click()
-                    logout_button.click()
-                except: # Desktop
-                    user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
-                    logout_button.click()
-      except NoSuchElementException as err:
-            message = "Exception: " + str(err.__class__) + str(err.msg)
-            driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-      except Exception as err:
-            message = "Exception: " + str(err.__class__) + str(err.msg)
-            driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+      # 1. Go to homepage
+      driver.get("https://www.browserstack.com/")
+        
+      try: # Mobile only test
+            mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
+            try:
+                # Go to login page on mobile
+                mobile_menu.click()
+                login_button = driver.find_element(By.LINK_TEXT, "Sign in")
+                login_button.click()
+                
+                # Login using your trial credentials
+                user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
+                user_input.send_keys(bs_email)
+                pass_input = driver.find_element_by_id("user_password")
+                pass_input.send_keys(bs_password)
+                pass_input.send_keys(Keys.RETURN)
+                
+                # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
+                mobile_menu.click()
+                invite_link = find_element(By.LINK_TEXT, "Invite team")
+                invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
+                invite_url = invite_page.get_attribute('innerHTML')
+                print("URL to invite users:", invite_url)
+   
+                # 3. Log out of BrowserStack
+                mobile_menu.click()
+                logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
+                logout_button.click()
+                
+                # Mark test as passed
+                driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
+                
+            except:
+                message = "Exception: " + str(err.__class__) + str(err.msg)
+                driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+ 
+      except: # Desktop only test
+            try:
+                # Go to login page on desktop
+                login_button = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.LINK_TEXT, "Sign in")))
+                login_button.click()
+                
+                # Login using your trial credentials
+                user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
+                user_input.send_keys(bs_email)
+                pass_input = driver.find_element_by_id("user_password")
+                pass_input.send_keys(bs_password)
+                pass_input.send_keys(Keys.RETURN)
+                
+                # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL 
+                driver.implicitly_wait(5) # Wait invite page to load
+                invite_link = find_element(By.LINK_TEXT, "Invite team")
+                assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+                invite_link.click()
+                invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
+                invite_url = invite_page.get_attribute('innerHTML')
+                print("URL to invite users:", invite_url)
+                
+                # 3. Log out of BrowserStack
+                user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
+                logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
+                logout_button.click()
+                
+                # Mark test as passed
+                driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
+                
+            except:
+                message = "Exception: " + str(err.__class__) + str(err.msg)
+                driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+                    
       finally:
-            # For marking test as passed
-            driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
             # Close the browser
             driver.quit()
             
