@@ -97,6 +97,9 @@ def tech_challenge(browser):
                 menu_button.click()
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
+                
+                # Mark test as passed
+                driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
                                                          
                 
     except NoSuchElementException as err:
@@ -106,10 +109,7 @@ def tech_challenge(browser):
     except Exception as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
-            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-                
-    # Mark test as passed
-    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')         
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')        
             
   except: # Desktop only test
     try:
@@ -136,6 +136,9 @@ def tech_challenge(browser):
                 user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
+                
+                # Mark test as passed
+                driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
                                                                                                                 
                 
     except NoSuchElementException as err:
@@ -146,9 +149,6 @@ def tech_challenge(browser):
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-    
-    # Mark test as passed
-    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
     
   finally:
     # Close the browser
