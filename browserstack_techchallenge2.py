@@ -46,7 +46,7 @@ browsers = [
         "deviceName": "Samsung Galaxy S22",
         "osVersion": "12.0",
         "sessionName": "BStack parallel python 3",
-        "browserName": "samsung",
+        "browserName": "chrome",
         "deviceOrientation": "portrait",
         "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
