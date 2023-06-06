@@ -18,6 +18,7 @@ BS_ACCESS_KEY = os.environ.get(
 URL = "https://{}:{}@hub.browserstack.com/wd/hub".format(BS_USERNAME, BS_ACCESS_KEY)
 BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
 
+
 # BrowserStack Trial credentials
 bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
 bs_password = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
@@ -60,6 +61,9 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
+  
+  options = webdriver.ChromeOptions()
+  desired_capabilities.update(options.to_capabilities())
 
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
