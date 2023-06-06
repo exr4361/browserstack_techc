@@ -48,6 +48,7 @@ browsers = [
         "osVersion": "12.0",
         "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
+        "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
         "maskCommands" : "setValues",
@@ -66,7 +67,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-            mobile_menu = driver.findElement(By.className("bs-collapse-toggle")) # Checks if menu is visible
+            mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "bs-collapse-toggle")) # Checks if menu is visible
             try:
                 # Go to login page on mobile
                 mobile_menu.click()
@@ -92,6 +93,10 @@ def tech_challenge(browser):
                 mobile_menu.click()
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
+                                                         
+                # Mark test as passed
+                driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
                 
             except NoSuchElementException as err:
                 message = "Exception: " + str(err.__class__) + str(err.msg)
@@ -101,9 +106,7 @@ def tech_challenge(browser):
                 message = "Exception: " + str(err.__class__) + str(err.msg)
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-            # Mark test as passed
-            driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+            
             
   except: # Desktop only test
             try:
@@ -130,6 +133,10 @@ def tech_challenge(browser):
                 user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
+                                                         
+                # Mark test as passed
+                driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')                                                        
                 
             except NoSuchElementException as err:
                 message = "Exception: " + str(err.__class__) + str(err.msg)
@@ -139,9 +146,7 @@ def tech_challenge(browser):
                 message = "Exception: " + str(err.__class__) + str(err.msg)
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-            # Mark test as passed
-            driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')        
+       
   finally:
     # Close the browser
     driver.quit()
