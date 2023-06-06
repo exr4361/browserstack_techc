@@ -65,7 +65,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-            mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
+            mobile_menu = WebDriverWait(driver, 6).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
             try:
                 # Go to login page on mobile
                 mobile_menu.click()
@@ -136,8 +136,8 @@ def tech_challenge(browser):
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
             # Mark test as passed
-            driver.execute_script(
-                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')        
+  driver.execute_script(
+    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')        
   finally:
     # Close the browser
     driver.quit()
