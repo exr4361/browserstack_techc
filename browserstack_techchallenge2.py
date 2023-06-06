@@ -82,9 +82,9 @@ def tech_challenge(browser):
                 pass_input.send_keys(Keys.RETURN)
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-                driver.refresh()
                 menu_toggle = driver.find_element(By.CLASS_NAME, "collapse-toggle")
                 menu_toggle.click()
+                driver.refresh()
                 invite_link = find_element(By.CLASS_NAME, "invite-link")
                 invite_link.click()
                 invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
