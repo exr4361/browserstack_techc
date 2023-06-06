@@ -62,6 +62,7 @@ def tech_challenge(browser):
 
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
+  driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
             mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
@@ -79,6 +80,7 @@ def tech_challenge(browser):
                 pass_input.send_keys(Keys.RETURN)
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
+                driver.implicitly_wait(1) # Wait for dashboard/home to load
                 mobile_menu.click()
                 invite_link = find_element(By.LINK_TEXT, "Invite team")
                 invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
@@ -89,9 +91,6 @@ def tech_challenge(browser):
                 mobile_menu.click()
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
-                
-                # Mark test as passed
-                driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
                 
             except NoSuchElementException as err:
                 message = "Exception: " + str(err.__class__) + str(err.msg)
@@ -128,9 +127,6 @@ def tech_challenge(browser):
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
                 
-                # Mark test as passed
-                driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
-                
             except NoSuchElementException as err:
                 message = "Exception: " + str(err.__class__) + str(err.msg)
                 driver.execute_script(
@@ -139,7 +135,9 @@ def tech_challenge(browser):
                 message = "Exception: " + str(err.__class__) + str(err.msg)
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-                    
+            # Mark test as passed
+            driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')        
   finally:
     # Close the browser
     driver.quit()
