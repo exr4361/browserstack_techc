@@ -3,6 +3,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -46,7 +47,8 @@ browsers = [
         "deviceName": "Samsung Galaxy S22",
         "osVersion": "12.0",
         "sessionName": "BStack parallel python 3",
-        "browserName": "chrome",
+        "browserName": "samsung",
+        "chrome": ChromeOptions(),
         "deviceOrientation": "portrait",
         "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
