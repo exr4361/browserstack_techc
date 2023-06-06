@@ -61,9 +61,6 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  
-  options = webdriver.ChromeOptions()
-  desired_capabilities.update(options.to_capabilities())
 
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
