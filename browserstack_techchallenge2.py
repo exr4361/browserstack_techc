@@ -82,7 +82,6 @@ def tech_challenge(browser):
                 pass_input.send_keys(Keys.RETURN)
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-                driver.implicitly_wait(1) # Wait for dashboard/home to load
                 mobile_menu.click()
                 invite_link = find_element(By.LINK_TEXT, "Invite team")
                 invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
