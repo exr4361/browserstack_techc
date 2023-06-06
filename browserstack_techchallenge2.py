@@ -48,7 +48,6 @@ browsers = [
         "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
         "deviceOrientation": "portrait",
-        "realMobile": "true",
         "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
     }
