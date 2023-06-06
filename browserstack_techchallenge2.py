@@ -1,3 +1,4 @@
+
 import os
 import json
 from selenium import webdriver
@@ -15,7 +16,8 @@ BROWSERSTACK_USERNAME = os.environ.get(
     "BROWSERSTACK_USERNAME") or "BROWSERSTACK_USERNAME"
 BROWSERSTACK_ACCESS_KEY = os.environ.get(
     "BROWSERSTACK_ACCESS_KEY") or "BROWSERSTACK_ACCESS_KEY"
-URL = os.environ.get("URL") or "https://hub.browserstack.com/wd/hub"
+URL = "https://{}:{}@hub.browserstack.com/wd/hub".format(BS_USERNAME, BS_ACCESS_KEY)
+BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
 
 capabilities = [
     {
