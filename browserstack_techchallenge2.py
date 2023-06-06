@@ -6,6 +6,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebElement;
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import json
@@ -67,7 +68,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-            mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
+            WebElement mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
             try:
                 # Go to login page on mobile
                 mobile_menu.click()
