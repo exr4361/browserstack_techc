@@ -48,7 +48,7 @@ browsers = [
         "osVersion": "12.0",
         "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
-        "chrome": ChromeOptions(),
+        "browserVersion": "latest",
         "deviceOrientation": "portrait",
         "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
