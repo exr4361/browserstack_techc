@@ -29,6 +29,7 @@ browsers = [
         "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest",
+        "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
     },
     {
@@ -37,6 +38,7 @@ browsers = [
         "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest",
+        "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
     },
     {
@@ -46,6 +48,7 @@ browsers = [
         "browserName": "samsung",
         "deviceOrientation": "portrait",
         "realMobile": "true",
+        "maskCommands" : "setValues",
         "build": BS_BUILD_NAME
     }
 ]
