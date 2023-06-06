@@ -12,9 +12,9 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from threading import Thread
 
-BROWSERSTACK_USERNAME = os.environ.get(
+BS_USERNAME = os.environ.get(
     "BROWSERSTACK_USERNAME") or "BROWSERSTACK_USERNAME"
-BROWSERSTACK_ACCESS_KEY = os.environ.get(
+BS_ACCESS_KEY = os.environ.get(
     "BROWSERSTACK_ACCESS_KEY") or "BROWSERSTACK_ACCESS_KEY"
 URL = "https://{}:{}@hub.browserstack.com/wd/hub".format(BS_USERNAME, BS_ACCESS_KEY)
 BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
@@ -61,8 +61,8 @@ def run_session(cap):
         "osVersion": cap["osVersion"],
         "buildName": cap["buildName"],
         "sessionName": cap["sessionName"],
-        "userName": BROWSERSTACK_USERNAME,
-        "accessKey": BROWSERSTACK_ACCESS_KEY
+        "userName": BS_USERNAME,
+        "accessKey": BS_ACCESS_KEY
     }
     if "os" in cap:
         bstack_options["os"] = cap["os"]
