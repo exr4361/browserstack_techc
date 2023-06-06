@@ -105,8 +105,7 @@ def tech_challenge(browser):
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
                 
     # Mark test as passed
-    driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "Test Passed"}}')          
+    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')         
             
   except: # Desktop only test
     try:
@@ -145,8 +144,8 @@ def tech_challenge(browser):
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
     
     # Mark test as passed
-    driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "Test Passed"}}')   
+    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
+    
   finally:
     # Close the browser
     driver.quit()
