@@ -70,7 +70,8 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-    mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
+    mobile_menu = driver.find_element_by_id("primary-menu-toggle") # Checks if menu is visible
+    mobile_menu.click()
     try:
                 # Go to login page on mobile
                 mobile_menu.click()
