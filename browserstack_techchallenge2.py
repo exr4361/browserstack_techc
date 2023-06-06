@@ -63,7 +63,7 @@ def run_session(cap):
         "sessionName": cap["sessionName"],
         "userName": BS_USERNAME,
         "accessKey": BS_ACCESS_KEY,
-        "build" BS_BUILD_NAME,
+        "build": BS_BUILD_NAME,
     }
     if "os" in cap:
         bstack_options["os"] = cap["os"]
