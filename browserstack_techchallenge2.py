@@ -64,7 +64,6 @@ def tech_challenge(browser):
             
             if login_button.is_displayed():
                 driver.maximize_window()
-                WebDriverWait(driver, 5).until(EC.element_to_be_clickable((login_button)))
                 login_button.click()
             else:
                 mobile_menu.click()
