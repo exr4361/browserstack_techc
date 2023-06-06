@@ -58,12 +58,19 @@ def tech_challenge(browser):
   if "deviceName" not in browser:
       try:
             # 1. Go to homepage and login to account
+            login_button = driver.find_element(By.CLASS_NAME, "sign-in-link")
+            mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
             driver.get("https://www.browserstack.com/")
-            driver.maximize_window()
-            login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
-            login_button.click()
+            if login_button.is_displayed():
+                driver.maximize_window()
+                WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
+                login_button.click()
+             else:
+                mobile_menu.click()
+                login_button.click()
 
             # Login using your trial credentials
+            user_input =
             user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
             user_input.send_keys(bs_email)
             pass_input = driver.find_element_by_id("user_password")
@@ -87,8 +94,7 @@ def tech_challenge(browser):
             # For marking test as passed
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
 
-            # Close the browser
-            driver.quit()
+            
 
       except NoSuchElementException as err:
             message = "Exception: " + str(err.__class__) + str(err.msg)
@@ -98,44 +104,9 @@ def tech_challenge(browser):
             message = "Exception: " + str(err.__class__) + str(err.msg)
             driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+      finally:
+            # Close the browser
+            driver.quit()
             
-  if "deviceName" in browser:
-    try:
-        driver.get("https://www.browserstack.com/")
-        menu_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "primary-menu-toggle")))
-        menu_button.click()
-        login_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
-        login_button.click()
-        
-        user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
-        user_input.send_keys(bs_email)
-        pass_input = driver.find_element_by_id("user_password")
-        pass_input.send_keys(bs_password)
-        pass_input.send_keys(Keys.RETURN)
-        
-        menu_button.click()
-        invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
-        invite_link.click()
-        assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
-        invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
-        invite_url = invite_page.get_attribute("innerHTML")
-        print("URL to invite users:", invite_url)
-        
-        # For marking test as passed
-        driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
-
-        # Close the browser
-        driver.quit()
-
-    except NoSuchElementException as err:
-        message = "Exception: " + str(err.__class__) + str(err.msg)
-        driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-    except Exception as err:
-        message = "Exception: " + str(err.__class__) + str(err.msg)
-        driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-        
-        
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
