@@ -59,7 +59,7 @@ def tech_challenge(browser):
       try:
             # 1. Go to homepage and login to account
             driver.get("https://www.browserstack.com/")
-            login_button = driver.find_element(By.linkText, "Sign in")
+            login_button = driver.find_element(By.LINK_TEXT, "Sign in")
             mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
             
             if login_button.is_displayed():
@@ -77,23 +77,29 @@ def tech_challenge(browser):
             pass_input.send_keys(Keys.RETURN)
 
             # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-            invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "invite-link"))) # Wait for the login to complete and the homepage to load
-            invite_link.click()
-            assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+            invite_link = find_element(By.LINK_TEXT, "Invite team")
+            
+            if invite_link.is_displayed():
+                invite_link.click()
+            else:
+                assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+                mobile.menu.click()
+                invite_link.click()
             invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
             invite_url = invite_page.get_attribute("innerHTML")
             print("URL to invite users:", invite_url)
 
             # 3. Log out of BrowserStack
-            user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))) # Wait for the dropdown menu to open
-            user_account.click()
-            logout_button = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "sign_out_link")))
-            logout_button.click()
+            logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
+            if logout_button.is_displayed():
+                mobile_menu.click()
+                logout_button.click()
+            else:
+                user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
+                logout_button.click()
 
             # For marking test as passed
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
-
-            
 
       except NoSuchElementException as err:
             message = "Exception: " + str(err.__class__) + str(err.msg)
