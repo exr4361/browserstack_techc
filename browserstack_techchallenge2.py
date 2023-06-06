@@ -65,7 +65,7 @@ def tech_challenge(browser):
                 driver.maximize_window()
                 WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
                 login_button.click()
-             else:
+            else:
                 mobile_menu.click()
                 login_button.click()
 
