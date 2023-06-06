@@ -93,7 +93,11 @@ def tech_challenge(browser):
                 # Mark test as passed
                 driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
                 
-            except:
+            except NoSuchElementException as err:
+                message = "Exception: " + str(err.__class__) + str(err.msg)
+                driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+            except Exception as err:
                 message = "Exception: " + str(err.__class__) + str(err.msg)
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
@@ -128,7 +132,11 @@ def tech_challenge(browser):
                 # Mark test as passed
                 driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed!"}}')
                 
-            except:
+            except NoSuchElementException as err:
+                message = "Exception: " + str(err.__class__) + str(err.msg)
+                driver.execute_script(
+                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+            except Exception as err:
                 message = "Exception: " + str(err.__class__) + str(err.msg)
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
