@@ -62,8 +62,8 @@ def tech_challenge(browser):
 
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
-        
-      try: # Mobile only test
+
+  try: # Mobile only test
             mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "primary-menu-toggle"))) # Checks if menu is visible
             try:
                 # Go to login page on mobile
@@ -102,7 +102,7 @@ def tech_challenge(browser):
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
  
-      except: # Desktop only test
+  except: # Desktop only test
             try:
                 # Go to login page on desktop
                 login_button = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.LINK_TEXT, "Sign in")))
@@ -141,9 +141,9 @@ def tech_challenge(browser):
                 driver.execute_script(
                     'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
                     
-      finally:
-            # Close the browser
-            driver.quit()
+  finally:
+    # Close the browser
+    driver.quit()
             
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
