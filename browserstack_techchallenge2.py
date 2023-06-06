@@ -5,7 +5,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-from appium.webdriver.common.appiumby import AppiumBy
+from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import json
@@ -31,7 +32,7 @@ browsers = [
         "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest",
-        "maskCommands" : "setValues",
+        "maskCommands" : "setValues, getValues",
         "build": BS_BUILD_NAME
     },
     {
@@ -40,7 +41,7 @@ browsers = [
         "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest",
-        "maskCommands" : "setValues",
+        "maskCommands" : "setValues, getValues",
         "build": BS_BUILD_NAME
     },
     {
@@ -51,7 +52,7 @@ browsers = [
         "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
-        "maskCommands" : "setValues",
+        "maskCommands" : "setValues, getValues",
         "build": BS_BUILD_NAME
     }
 ]
@@ -67,7 +68,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-            mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((AppiumBy.ID, "primary-menu-toggle"))) # Checks if menu is visible
+            mobile_menu = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((MobileBy.ID, "primary-menu-toggle"))) # Checks if menu is visible
             try:
                 # Go to login page on mobile
                 mobile_menu.click()
@@ -75,7 +76,7 @@ def tech_challenge(browser):
                 login_button.click()
                 
                 # Login using your trial credentials
-                user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((AppiumBy.ID, "user_email_login")))
+                user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((MobileBy.ID, "user_email_login")))
                 user_input.send_keys(bs_email)
                 pass_input = driver.find_element_by_id("user_password")
                 pass_input.send_keys(bs_password)
@@ -85,13 +86,13 @@ def tech_challenge(browser):
                 driver.implicitly_wait(1) # Wait for dashboard/home to load
                 mobile_menu.click()
                 invite_link = find_element(AppiumBy.LINK_TEXT, "Invite team")
-                invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((AppiumBy.CLASS_NAME, "manage-users__invite-copyLink-text")))
+                invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME, "manage-users__invite-copyLink-text")))
                 invite_url = invite_page.get_attribute('innerHTML')
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
                 mobile_menu.click()
-                logout_button = driver.find_element(AppiumBy.TEXT_LINK, "Sign out")
+                logout_button = driver.find_element(MobileBy.TEXT_LINK, "Sign out")
                 logout_button.click()
                                                          
                 # Mark test as passed
