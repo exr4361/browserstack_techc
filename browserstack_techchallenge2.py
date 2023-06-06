@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import json
 import os
 
 # Environment Variables
@@ -66,10 +67,11 @@ def tech_challenge(browser):
             mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
             
             if login_button.is_displayed():
-                login_button.click()
-            else:
-                mobile_menu.click()
-                login_button.click()
+                try: # Desktop
+                    login_button.click() 
+                except: # Mobile 
+                    mobile_menu.click() 
+                    login_button.click()
 
             # Login using your trial credentials
             user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
@@ -82,11 +84,12 @@ def tech_challenge(browser):
             invite_link = find_element(By.LINK_TEXT, "Invite team")
             
             if invite_link.is_displayed():
-                invite_link.click()
-            else:
-                assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
-                mobile.menu.click()
-                invite_link.click()
+                try: # Desktop
+                    invite_link.click()
+                except: # Mobile
+                    assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+                    mobile.menu.click()
+                    invite_link.click() 
             invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
             invite_url = invite_page.get_attribute('innerHTML')
             print("URL to invite users:", invite_url)
@@ -94,12 +97,12 @@ def tech_challenge(browser):
             # 3. Log out of BrowserStack
             logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
             if logout_button.is_displayed():
-                mobile_menu.click()
-                logout_button.click()
-            else:
-                user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
-                logout_button.click()
-
+                try: # Mobile
+                    mobile_menu.click()
+                    logout_button.click()
+                except: # Desktop
+                    user_account = WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.ID, "account-menu-toggle"))).click() # Wait for the dropdown menu to open
+                    logout_button.click()
       except NoSuchElementException as err:
             message = "Exception: " + str(err.__class__) + str(err.msg)
             driver.execute_script(
