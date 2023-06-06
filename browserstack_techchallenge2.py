@@ -85,7 +85,7 @@ def tech_challenge(browser):
                 driver.implicitly_wait(1)
                 menu_toggle = driver.find_element(By.CLASS_NAME, "collapse-toggle")
                 menu_toggle.click()
-                invite_link = find_element(By.LINK_TEXT, "Invite team")
+                invite_link = find_element(By.CLASS_NAME, "invite-link")
                 invite_link.click()
                 invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
                 invite_url = invite_page.get_attribute('innerHTML')
