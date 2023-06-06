@@ -94,14 +94,14 @@ def tech_challenge(browser):
                 logout_button.click()
                                                          
                 
-            except NoSuchElementException as err:
-                message = "Exception: " + str(err.__class__) + str(err.msg)
-                driver.execute_script(
-                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-            except Exception as err:
-                message = "Exception: " + str(err.__class__) + str(err.msg)
-                driver.execute_script(
-                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    except NoSuchElementException as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    except Exception as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
                 
     # Mark test as passed
     driver.execute_script(
@@ -134,15 +134,16 @@ def tech_challenge(browser):
                 logout_button.click()
                                                                                                                 
                 
-            except NoSuchElementException as err:
-                message = "Exception: " + str(err.__class__) + str(err.msg)
-                driver.execute_script(
-                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-            except Exception as err:
-                message = "Exception: " + str(err.__class__) + str(err.msg)
-                driver.execute_script(
-                    'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-                  # Mark test as passed
+    except NoSuchElementException as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+   except Exception as err:
+    message = "Exception: " + str(err.__class__) + str(err.msg)
+    driver.execute_script(
+        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    
+    # Mark test as passed
     driver.execute_script(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')    
   finally:
