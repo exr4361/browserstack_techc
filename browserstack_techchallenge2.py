@@ -67,7 +67,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-    mobile_menu = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "primary-menu-toggle"))) # Only run if menu is clickable
+    mobile_menu = driver.find_element(By.ID, "primary-menu-toggle") # Only run if menu is clickable
     try:
                 # Go to login page on mobile
                 mobile_menu.click()
@@ -82,14 +82,15 @@ def tech_challenge(browser):
                 pass_input.send_keys(Keys.RETURN)
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-                mobile_menu.click()
+                driver.find_element(By.ID, "primary-menu-toggle").click()
                 invite_link = find_element(By.LINK_TEXT, "Invite team")
+                invite_link.click()
                 invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
                 invite_url = invite_page.get_attribute('innerHTML')
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
-                mobile_menu.click()
+                driver.find_element(By.ID, "primary-menu-toggle").click()
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
                                                          
@@ -105,7 +106,7 @@ def tech_challenge(browser):
                 
     # Mark test as passed
     driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')          
+        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "Test Passed"}}')          
             
   except: # Desktop only test
     try:
@@ -145,7 +146,7 @@ def tech_challenge(browser):
     
     # Mark test as passed
     driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')    
+        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "Test Passed"}}')   
   finally:
     # Close the browser
     driver.quit()
