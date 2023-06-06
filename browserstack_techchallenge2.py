@@ -68,7 +68,6 @@ def tech_challenge(browser):
 
   try: # Mobile only test
     mobile_menu = driver.find_element_by_id("primary-menu-toggle") # Checks if menu is visible
-    mobile_menu.click()
     try:
                 # Go to login page on mobile
                 mobile_menu.click()
