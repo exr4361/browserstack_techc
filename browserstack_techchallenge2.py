@@ -59,12 +59,12 @@ def tech_challenge(browser):
       try:
             # 1. Go to homepage and login to account
             driver.get("https://www.browserstack.com/")
-            login_button = driver.find_element(By.CLASS_NAME, "sign-in-link")
+            login_button = driver.find_element(By.linkText, "Sign in")
             mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
             
             if login_button.is_displayed():
                 driver.maximize_window()
-                WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-link")))
+                WebDriverWait(driver, 5).until(EC.element_to_be_clickable((login_button)))
                 login_button.click()
             else:
                 mobile_menu.click()
