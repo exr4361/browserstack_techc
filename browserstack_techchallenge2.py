@@ -67,7 +67,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-    mobile_menu = driver.find_element_by_id("primary-menu-toggle") # Checks if menu is visible
+    mobile_menu = driver.find_element_by_id("primary-menu-toggle") # Only run if menu is interactable
     try:
                 # Go to login page on mobile
                 mobile_menu.click()
@@ -75,9 +75,9 @@ def tech_challenge(browser):
                 login_button.click()
                 
                 # Login using your trial credentials
-                user_input = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "user_email_login")))
+                user_input = driver.find_element(By.ID, "user_email_login")
                 user_input.send_keys(bs_email)
-                pass_input = driver.find_element_by_id("user_password")
+                pass_input = driver.find_element(By.ID, "user_password")
                 pass_input.send_keys(bs_password)
                 pass_input.send_keys(Keys.RETURN)
                 
@@ -85,7 +85,7 @@ def tech_challenge(browser):
                 driver.implicitly_wait(1) # Wait for dashboard/home to load
                 mobile_menu.click()
                 invite_link = find_element(By.LINK_TEXT, "Invite team")
-                invite_page = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
+                invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
                 invite_url = invite_page.get_attribute('innerHTML')
                 print("URL to invite users:", invite_url)
    
