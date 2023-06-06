@@ -23,7 +23,7 @@ capabilities = [
     {
         "os": "OS X",
         "osVersion": "Monterey",
-        "buildName": "browserstack-build-1",
+        "buildName": BS_BUILD_NAME,
         "sessionName": "BStack parallel python",
         "browserName": "chrome",
         "browserVersion": "latest"
@@ -31,7 +31,7 @@ capabilities = [
     {
         "os": "Windows",
         "osVersion": "11",
-        "buildName": "browserstack-build-1",
+        "buildName": BS_BUILD_NAME,
         "sessionName": "BStack parallel python",
         "browserName": "firefox",
         "browserVersion": "latest"
@@ -39,7 +39,7 @@ capabilities = [
     {
         "osVersion": "10",
         "deviceName": "Samsung Galaxy S20",
-        "buildName": "browserstack-build-1",
+        "buildName": BS_BUILD_NAME,
         "sessionName": "BStack parallel python",
         "browserName": "chrome",
     },
@@ -62,7 +62,8 @@ def run_session(cap):
         "buildName": cap["buildName"],
         "sessionName": cap["sessionName"],
         "userName": BS_USERNAME,
-        "accessKey": BS_ACCESS_KEY
+        "accessKey": BS_ACCESS_KEY,
+        "build" BS_BUILD_NAME,
     }
     if "os" in cap:
         bstack_options["os"] = cap["os"]
