@@ -85,10 +85,11 @@ def tech_challenge(browser):
 
         # Set the email value
         email_input.send_keys(bs_email)
-        driver.execute_script("arguments[0].setAttribute('value', arguments[1]);", pass_input, bs_pass)
+        # Execute JavaScript code to modify the password input field value without exposing it in logs
+        driver.execute_script("arguments[0].value = arguments[1];", pass_input, bs_pass)
 
         # Trigger the "Enter" key event on the password input field
-        driver.execute_script("var event = new KeyboardEvent('keydown', { key: 'Enter' }); arguments[0].dispatchEvent(event);", pass_input)
+        pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
         driver.find_element_by_id("primary-menu-toggle").click()
