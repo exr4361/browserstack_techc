@@ -65,7 +65,7 @@ def tech_challenge(browser):
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
-  windowSize = driver.manage().window().getSize().getWidth()
+  windowSize = driver.get_window_size.getWidth()
   try:
     if windowSize < 991:
         driver.find_element_by_id("primary-menu-toggle").click()
