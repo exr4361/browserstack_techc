@@ -70,13 +70,15 @@ def tech_challenge(browser):
         driver.find_element_by_id("primary-menu-toggle").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
-    elif len(driver.find_elements(By.ID, "primary-menu-toggle")) < 1:
+  except:
+       pass
+  try:
+    if len(driver.find_elements(By.ID, "primary-menu-toggle")) < 1:
         driver.find_element(By.LINK_TEXT, "Sign in").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
   except:
-       pass
+    pass
 
-            
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
