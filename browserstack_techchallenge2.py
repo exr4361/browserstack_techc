@@ -96,6 +96,7 @@ def tech_challenge(browser):
         driver.find_element(By.LINK_TEXT, "Sign out").click()
 
         # Mark test as passed 
+        driver.quit
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
   
   except StaleElementReferenceException:
@@ -129,6 +130,7 @@ def tech_challenge(browser):
             logout_button.click()
 
             # Mark test as passed
+            driver.quit
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
 
         except NoSuchElementException as err:
@@ -144,9 +146,7 @@ def tech_challenge(browser):
     message = "Exception: " + str(err.__class__) + str(err.msg)
     driver.execute_script(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')      
-    # Close browser
-  finally:
-    driver.quit
+
         
 # Run each browser in parallel         
 for browser in browsers:
