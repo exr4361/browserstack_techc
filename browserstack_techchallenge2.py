@@ -65,6 +65,13 @@ def tech_challenge(browser):
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
+  try:
+    if len(driver.find_elements(By.ID, "primary-menu-toggle")) > 0:
+        print("Menu Visible")
+    else:
+        print("Menu not Visible")
+  except:
+       pass
   if driver.find_element_by_id("primary-menu-toggle").is_displayed():
     driver.find_element_by_id("primary-menu-toggle").click(2)
     driver.quit()
