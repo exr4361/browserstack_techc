@@ -79,9 +79,15 @@ def tech_challenge(browser):
         login_button.click()
         
         # Login using your trial credentials
-        driver.execute_script("document.getElementById('user_email_login').value = arguments[0];", bs_email)
-        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_pass)
+        # Find the email and password input fields
+        email_input = driver.find_element_by_id("user_email_login")
         pass_input = driver.find_element_by_id("user_password")
+
+        # Set the email value
+        email_input.send_keys(bs_email)
+        driver.execute_script("arguments[0].setAttribute('value', arguments[1]);", pass_input, bs_pass)
+
+        # Trigger the "Enter" key event on the password input field
         driver.execute_script("var event = new KeyboardEvent('keydown', { key: 'Enter' }); arguments[0].dispatchEvent(event);", pass_input)
         
         # 2. Retrieve share link
