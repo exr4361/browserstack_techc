@@ -65,16 +65,17 @@ def tech_challenge(browser):
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
-  windowSize = driver.get_window_size.getWidth()
+  windowSize = driver.get_window_size()
+  windowWidth = windowSize['width']
   try:
-    if windowSize < 991:
+    if windowWidth < 991:
         driver.find_element_by_id("primary-menu-toggle").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
   except:
        pass
   try:
-    if windowSize > 991 :
+    if windowWidth > 991 :
         driver.find_element(By.LINK_TEXT, "Sign in").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
