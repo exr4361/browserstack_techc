@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import logging
 import json
 import os
 
@@ -19,9 +20,20 @@ URL = "https://{}:{}@hub.browserstack.com/wd/hub".format(BS_USERNAME, BS_ACCESS_
 BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
 
 
-# BrowserStack Trial credentials
+# BrowserStack trial credentials
 bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
 bs_password = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
+
+# Custom logger to hide trial credentials
+class SecureLogger(logging.Filter):
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
+    def filter(self, record):
+        # Filter out or obfuscate sensitive information from the log record
+        record.msg = record.msg.replace(self.email, '***').replace(self.password, '***')
+        return True
 
 # Set up capabilities for each browser
 browsers = [
@@ -56,12 +68,22 @@ browsers = [
     }
 ]
 
+# Set up the custom logger
+logger = logging.getLogger('selenium.webdriver.remote.remote_connection')
+logger.setLevel(logging.INFO) 
+
+# Create an instance of the SecureLogger
+secure_logger = SecureLogger(bs_email, bs_password)
+handler = logging.StreamHandler()
+handler.addFilter(secure_logger)
+logger.addHandler(handler)
+
 # Run function for test 
 def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-
+   
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
