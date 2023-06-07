@@ -66,18 +66,18 @@ def tech_challenge(cap):
         "accessKey": BS_ACCESS_KEY,
         "maskCommands": "setValues"
     }
-    if "os" in cap:
+   if "os" in cap:
         bstack_options["os"] = cap["os"]
-    if "deviceName" in cap:
+   if "deviceName" in cap:
         bstack_options['deviceName'] = cap["deviceName"]
     bstack_options["source"] = "python:sample-main:v1.1"
-    if cap['browserName'] in ['ios']:
+   if cap['browserName'] in ['ios']:
         cap['browserName'] = 'safari'
     options = get_browser_option(cap["browserName"].lower())
-    if "browserVersion" in cap:
+   if "browserVersion" in cap:
         options.browser_version = cap["browserVersion"]
     options.set_capability('bstack:options', bstack_options)
-    if cap['browserName'].lower() == 'samsung':
+   if cap['browserName'].lower() == 'samsung':
         options.set_capability('browserName', 'samsung')
     driver = webdriver.Remote(
         command_executor=URL,
