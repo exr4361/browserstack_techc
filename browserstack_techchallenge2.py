@@ -6,6 +6,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import logging
 import json
 import os
 
@@ -85,6 +86,7 @@ def tech_challenge(cap):
 
         # Set the email value
         email_input.send_keys(bs_email)
+        logging.getLogger('selenium').setLevel(logging.WARNING)
         # Execute JavaScript code to modify the password input field value without exposing it in logs
         driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_password)
 
