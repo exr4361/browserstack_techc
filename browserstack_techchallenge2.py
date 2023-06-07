@@ -25,9 +25,6 @@ bs_pass = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFi
 
 # Set up capabilities for each browser
 browsers = [
-    'bstack:options' : {
-        "maskCommands" : "setValues, getValues, setCookies, getCookies",
- 	}
     {
         "os": "OS X",
         "osVersion": "Ventura",
@@ -56,6 +53,11 @@ browsers = [
         "build": BS_BUILD_NAME
     }
 ]
+# Create desired capabilities object
+capabilities = DesiredCapabilities.CHROME.copy()
+
+# Add options to desired capabilities
+capabilities.set_capability("maskCommands", "setValues, getValues,")
 
 def mask_input(input):
     return '*' * len(input)
@@ -64,7 +66,7 @@ def mask_input(input):
 def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
-      desired_capabilities=browser)
+      desired_capabilities=capabilities)
    
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
