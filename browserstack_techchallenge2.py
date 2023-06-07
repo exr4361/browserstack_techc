@@ -100,7 +100,7 @@ def tech_challenge(browser):
         
         # Desktop test if menu element is not found
         except NoSuchElementException:
-            print("Menu element not found, you're in a desktop browser"
+            print("Menu element not found, you're in a desktop browser")
             try:
                 # Go to login page on desktop
                 login_button = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.LINK_TEXT, "Sign in")))
