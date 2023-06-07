@@ -65,7 +65,7 @@ def tech_challenge(browser):
     # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
-  if driver.find_element_by_id("primary-menu-toggle").is_displayed() = true:
+  if driver.find_element_by_id("primary-menu-toggle").is_displayed():
     print("Mobile Mode")
 
   try: # Mobile only test
