@@ -83,6 +83,7 @@ def tech_challenge(browser):
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
                 menu_toggle = driver.find_element(By.ID, "primary-menu-toggle")
+                time.sleep(1)
                 menu_toggle.click()
                 invite_link = driver.find_element(By.ID, "invite-link")
                 invite_link.click()
