@@ -50,14 +50,10 @@ browsers = [
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
         "seleniumLogs" : "false",
+        "maskCommands": "setValues, getValues,"
         "build": BS_BUILD_NAME
     }
 ]
-# Create desired capabilities object
-capabilities = DesiredCapabilities.CHROME.copy()
-
-# Add options to desired capabilities
-capabilities.set_capability("maskCommands", "setValues, getValues,")
 
 def mask_input(input):
     return '*' * len(input)
@@ -66,7 +62,7 @@ def mask_input(input):
 def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
-      desired_capabilities=capabilities)
+      desired_capabilities=browser)
    
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
@@ -89,7 +85,7 @@ def tech_challenge(browser):
         # Set the email value
         email_input.send_keys(bs_email)
         # Execute JavaScript code to modify the password input field value without exposing it in logs
-        driver.execute_script("arguments[0].style.cssText = 'text-security: disc !important; -webkit-text-security: disc !important;'; arguments[0].value = arguments[1];", pass_input, bs_pass)
+        driver.execute_script("arguments[0].value = arguments[1];", pass_input, bs_pass)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
