@@ -79,10 +79,9 @@ def tech_challenge(browser):
         login_button.click()
         
         # Login using your trial credentials
-        user_input = driver.find_element_by_id("user_email_login")
-        user_input.send_keys(bs_email)
+        driver.execute_script("document.getElementById('user_email_login').value = arguments[0];", bs_email)
+        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_pass)
         pass_input = driver.find_element_by_id("user_password")
-        pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
