@@ -81,14 +81,13 @@ def tech_challenge(cap):
         
         # Login using your trial credentials
         # Find the email and password input fields
-        email_input = driver.find_element_by_id("user_email_login")
-        pass_input = driver.find_element_by_id("user_password")
+
 
         # Set the email value
-        email_input.send_keys(bs_email)
         logging.getLogger('selenium').setLevel(logging.WARNING)
         # Execute JavaScript code to modify the password input field value without exposing it in logs
-        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_password)
+        driver.execute_script("document.getElementById('user_email_login').value = arguments[0];", bs_email)
+        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_pass)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
