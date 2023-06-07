@@ -73,10 +73,10 @@ def tech_challenge(cap):
    bstack_options["source"] = "python:sample-main:v1.1"
    if cap['browserName'] in ['ios']:
         cap['browserName'] = 'safari'
-    options = get_browser_option(cap["browserName"].lower())
+   options = get_browser_option(cap["browserName"].lower())
    if "browserVersion" in cap:
         options.browser_version = cap["browserVersion"]
-    options.set_capability('bstack:options', bstack_options)
+   options.set_capability('bstack:options', bstack_options)
    if cap['browserName'].lower() == 'samsung':
         options.set_capability('browserName', 'samsung')
     driver = webdriver.Remote(
