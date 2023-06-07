@@ -23,10 +23,6 @@ BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
 bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
 bs_pass = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
 
-# Mask trial credentials
-masked_email = '•' * len(bs_email) if bs_email else ''
-masked_pass = '•' * len(bs_pass) if bs_pass else ''
-
 # Set up capabilities for each browser
 browsers = [
     {
@@ -81,11 +77,9 @@ def tech_challenge(browser):
         
         # Login using your trial credentials
         user_input = driver.find_element(By.ID, "user_email_login")
-        driver.execute_script("arguments[0].value = arguments[1]", user_input, masked_email)
-        user_input.send_keys(bs_email)
+        driver.execute_script("arguments[0].value = arguments[1]", user_input, bs_email)
         pass_input = driver.find_element(By.ID, "user_password")
-        driver.execute_script("arguments[0].value = arguments[1]", pass_input, masked_pass)
-        pass_input.send_keys(bs_pass)
+        driver.execute_script("arguments[0].value = arguments[1]", pass_input, bs_pass)
         pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
