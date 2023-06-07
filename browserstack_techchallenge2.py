@@ -32,6 +32,7 @@ browsers = [
         "browserName": "firefox",
         "browserVersion": "latest",
         "maskCommands" : "setValues, getValues",
+        "seleniumLogs" : "false",
         "build": BS_BUILD_NAME
     },
     {
@@ -41,6 +42,7 @@ browsers = [
         "browserName": "chrome",
         "browserVersion": "latest",
         "maskCommands" : "setValues, getValues",
+        "seleniumLogs" : "false",
         "build": BS_BUILD_NAME
     },
     {
@@ -52,6 +54,7 @@ browsers = [
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
         "maskCommands" : "setValues, getValues",
+        "seleniumLogs" : "false",
         "build": BS_BUILD_NAME
     }
 ]
@@ -76,10 +79,10 @@ def tech_challenge(browser):
         login_button.click()
         
         # Login using your trial credentials
-        user_input = driver.find_element(By.ID, "user_email_login")
-        driver.execute_script("arguments[0].value = arguments[1]", user_input, bs_email)
-        pass_input = driver.find_element(By.ID, "user_password")
-        driver.execute_script("arguments[0].value = arguments[1]", pass_input, bs_pass)
+        user_input = driver.find_element_by_id("user_email_login")
+        user_input.send_keys(bs_email)
+        pass_input = driver.find_element_by_id("user_password")
+        pass_input.send_keys(bs_password)
         pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
