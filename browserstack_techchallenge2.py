@@ -95,9 +95,9 @@ def tech_challenge(browser):
         driver.find_element(By.ID, "primary-menu-toggle").click()
         driver.find_element(By.LINK_TEXT, "Sign out").click()
 
-        # Mark test as passed 
-        driver.quit()
+        # Mark test as passed and close browser
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
+        driver.quit()
   
   # Desktop test if menu element is not found
   except ElementNotInteractableException:
@@ -127,9 +127,9 @@ def tech_challenge(browser):
             logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
             logout_button.click()
 
-            # Mark test as passed
-            driver.quit()
+            # Mark test as passed and close browser
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
+            driver.quit()
 
         except NoSuchElementException as err:
             message = "Exception: " + str(err.__class__) + str(err.msg)
