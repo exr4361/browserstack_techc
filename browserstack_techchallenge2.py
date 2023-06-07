@@ -99,7 +99,7 @@ def tech_challenge(browser):
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
         
   # Desktop test if menu element is not found
-  except NoSuchElementException:
+  except:
         print("Menu element not found, you're in a desktop browser")
         try:
             # Go to login page on desktop
