@@ -81,11 +81,11 @@ def tech_challenge(browser):
         
         # Login using your trial credentials
         user_input = driver.find_element(By.ID, "user_email_login")
-        user_input.send_keys(masked_email)
+        driver.execute_script("arguments[0].value = arguments[1]", user_input, masked_email)
+        user_input.send_keys(bs_email)
         pass_input = driver.find_element(By.ID, "user_password")
-        pass_input.send_keys(masked_pass)
-        driver.execute_script("arguments[0].value = arguments[1]", user_input, bs_email)
-        driver.execute_script("arguments[0].value = arguments[1]", pass_input, bs_pass)
+        driver.execute_script("arguments[0].value = arguments[1]", pass_input, masked_pass)
+        pass_input.send_keys(bs_pass)
         pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
