@@ -99,8 +99,6 @@ def tech_challenge(browser):
         driver.quit
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
   
-  except StaleElementReferenceException:
-    pass
   # Desktop test if menu element is not found
   except ElementNotInteractableException:
         print("Menu element not found, you're in a desktop browser")
@@ -141,8 +139,11 @@ def tech_challenge(browser):
             message = "Exception: " + str(err.__class__) + str(err.msg)
             driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+            
+ except StaleElementReferenceException:
+    pass
   
-  except Exception as err:
+ except Exception as err:
     message = "Exception: " + str(err.__class__) + str(err.msg)
     driver.execute_script(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')      
