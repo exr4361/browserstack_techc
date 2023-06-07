@@ -86,7 +86,7 @@ def tech_challenge(browser):
                 menu_toggle = driver.find_element(By.ID, "primary-menu-toggle")
                 menu_toggle.click()
                 invite_link = driver.find_element(By.ID, "invite-link")
-                invite_link.submit()
+                invite_link.click()
 
                 invite_button = driver.find_element(By.CLASS_NAME, "manage-users__invite-copy-cta")
                 invite_button.submit() 
