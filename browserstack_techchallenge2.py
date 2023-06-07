@@ -87,10 +87,8 @@ def tech_challenge(browser):
         invite_link = driver.find_element(By.ID, "invite-link")
         invite_link.click()
         
-        invite_page = driver.find_element_by_class_name("manage-users__invite-copyLink-text")
-        invite_page = driver.find_element_by_xpath('.//span[@class = "manage-users__invite-copyLink-text"]')
-        invite_url = invite_page.text()
-        print("URL to invite users:", invite_url)
+        invite_url = driver.find_element(By.XPATH, './/span[@class = "manage-users__invite-copyLink-text"]').get_attribute("innerText")
+        print("URL to invite users:", invite_page)
         
         # 3. Log out of BrowserStack
         driver.find_element(By.ID, "primary-menu-toggle").click()
