@@ -70,7 +70,7 @@ def tech_challenge(cap):
         bstack_options["os"] = cap["os"]
    if "deviceName" in cap:
         bstack_options['deviceName'] = cap["deviceName"]
-        bstack_options["source"] = "python:sample-main:v1.1"
+   bstack_options["source"] = "python:sample-main:v1.1"
    if cap['browserName'] in ['ios']:
         cap['browserName'] = 'safari'
     options = get_browser_option(cap["browserName"].lower())
