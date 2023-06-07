@@ -31,7 +31,7 @@ browsers = [
         "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest",
-        "build": BS_BUILD_NAME
+        "buildName": BS_BUILD_NAME
     },
     {
         "os": "Windows",
@@ -39,7 +39,7 @@ browsers = [
         "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest",
-        "build": BS_BUILD_NAME
+        "buildName": BS_BUILD_NAME
     },
     {
         "deviceName": "Samsung Galaxy S22",
@@ -49,9 +49,7 @@ browsers = [
         "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
-        "seleniumLogs" : "false",
-        "maskCommands": "setValues, getValues,",
-        "build": BS_BUILD_NAME
+        "buildName": BS_BUILD_NAME
     }
 ]
 
@@ -62,10 +60,10 @@ def mask_input(input):
 def tech_challenge(cap):
    bstack_options = {
         "osVersion": cap["osVersion"],
-        "buildName": cap["buildName"],
+        "build": cap["buildName"],
         "sessionName": cap["sessionName"],
-        "userName": BROWSERSTACK_USERNAME,
-        "accessKey": BROWSERSTACK_ACCESS_KEY,
+        "userName": BS_USERNAME,
+        "accessKey": BS_ACCESS_KEY,
         "maskCommands": "setValues"
     }
     if "os" in cap:
@@ -83,7 +81,7 @@ def tech_challenge(cap):
         options.set_capability('browserName', 'samsung')
     driver = webdriver.Remote(
         command_executor=URL,
-        desired_capabilities=options)
+        options=options)
 
    
   # 1. Go to homepage
