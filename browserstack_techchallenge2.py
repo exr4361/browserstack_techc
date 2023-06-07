@@ -53,8 +53,11 @@ browsers = [
     }
 ]
 
-def mask_input(input):
-    return '*' * len(input)
+# Hide execute_script agrs
+def log_script(script, *args):
+    driver.execute_script("console.log = function() {};")
+    driver.execute_script(script, *args)
+    driver.execute_script("console.log = console._log;")
 
 # Run function for test 
 def tech_challenge(cap):
@@ -83,8 +86,7 @@ def tech_challenge(cap):
         # Set the email value
         email_input.send_keys(bs_email)
         # Execute JavaScript code to modify the password input field value without exposing it in logs
-        driver.execute_script("console.log = function() {};")  # Disable console.log output
-        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_password)
+        log_script("document.getElementById('user_password').value = arguments[0];", bs_password)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
