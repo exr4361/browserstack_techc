@@ -50,7 +50,7 @@ browsers = [
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
         "seleniumLogs" : "false",
-        "maskCommands": "setValues, getValues,"
+        "maskCommands": "setValues, getValues,",
         "build": BS_BUILD_NAME
     }
 ]
