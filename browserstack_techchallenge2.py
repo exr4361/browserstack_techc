@@ -67,7 +67,7 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
     
   # Mobile Test
-  if driver.find_element(By.ID, "primary-menu-toggle").is_displayed(): # Only run if menu is visible
+  if driver.find_element(By.ID, "primary-menu-toggle").is_displayed() == true: # Only run if menu is visible
         try:
             # Go to login page on mobile
             mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
