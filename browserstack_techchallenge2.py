@@ -124,7 +124,7 @@ def tech_challenge(browser):
                 invite_link = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.LINK_TEXT, "Sign in")))
                 assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
                 invite_link.click()
-                invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
+                invite_page = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
                 invite_url = invite_page.get_attribute('innerHTML')
                 print("URL to invite users:", invite_url)
                 
