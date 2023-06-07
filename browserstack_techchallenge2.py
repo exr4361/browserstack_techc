@@ -89,7 +89,7 @@ def tech_challenge(browser):
                 invite_link.submit()
 
                 invite_button = driver.find_element(By.CLASS_NAME, "manage-users__invite-copy-cta")
-                invite_button.click()  
+                invite_button.submit() 
                 root = tk.Tk()
                 root.withdraw()  # to hide the window
                 invite_url = root.clipboard_get()
