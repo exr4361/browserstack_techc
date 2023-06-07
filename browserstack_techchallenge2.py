@@ -92,9 +92,9 @@ def tech_challenge(browser):
         invite_url = invite_page.get_attribute('innerHTML')
         print("URL to invite users:", invite_url)
         
-         # 3. Log out of BrowserStack
-         driver.find_element(By.ID, "primary-menu-toggle").click()
-         driver.find_element(By.LINK_TEXT, "Sign out").click()
+        # 3. Log out of BrowserStack
+        driver.find_element(By.ID, "primary-menu-toggle").click()
+        driver.find_element(By.LINK_TEXT, "Sign out").click()
         
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
