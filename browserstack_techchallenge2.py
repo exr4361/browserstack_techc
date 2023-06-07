@@ -7,7 +7,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import pyperclip
 import json
 import os
 
@@ -90,7 +89,7 @@ def tech_challenge(browser):
 
                 invite_button = driver.find_element(By.CLASS_NAME, "manage-users__invite-copy-cta")
                 invite_button.click()
-                invite_url = pyperclip.paste()
+                invite_url = driver.execute_script("return await navigator.clipboard.readText();"))
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
