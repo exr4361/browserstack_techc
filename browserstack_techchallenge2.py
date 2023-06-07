@@ -112,7 +112,7 @@ def tech_challenge(browser):
             pass
     
   # Desktop test
-  elif:
+  elif driver.find_element(By.ID, "primary-menu-toggle").is_displayed() == false:
         try:
             # Go to login page on desktop
             login_button = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.LINK_TEXT, "Sign in")))
