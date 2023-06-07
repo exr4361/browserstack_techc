@@ -81,7 +81,7 @@ def tech_challenge(cap):
         
         # Login using your trial credentials
         # Find the email and password input fields
-
+        pass_input = driver.find_element(By.ID "user_password")
 
         # Set the email value
         logging.getLogger('selenium').setLevel(logging.WARNING)
