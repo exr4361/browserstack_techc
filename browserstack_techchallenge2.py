@@ -25,7 +25,7 @@ bs_pass = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFi
 
 # Mask trial credentials
 masked_email = '*' * len(bs_email) if bs_email else ''
-masked_pass = '*' * len(bs_password) if bs_password else ''
+masked_pass = '*' * len(bs_pass) if bs_pass else ''
 
 # Set up capabilities for each browser
 browsers = [
