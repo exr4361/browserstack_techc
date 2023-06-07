@@ -59,10 +59,32 @@ def mask_input(input):
     return '*' * len(input)
 
 # Run function for test 
-def tech_challenge(browser):
-  driver = webdriver.Remote(
-      command_executor=URL,
-      desired_capabilities=browser)
+def tech_challenge(cap):
+   bstack_options = {
+        "osVersion": cap["osVersion"],
+        "buildName": cap["buildName"],
+        "sessionName": cap["sessionName"],
+        "userName": BROWSERSTACK_USERNAME,
+        "accessKey": BROWSERSTACK_ACCESS_KEY,
+        "maskCommands": "setValues"
+    }
+    if "os" in cap:
+        bstack_options["os"] = cap["os"]
+    if "deviceName" in cap:
+        bstack_options['deviceName'] = cap["deviceName"]
+    bstack_options["source"] = "python:sample-main:v1.1"
+    if cap['browserName'] in ['ios']:
+        cap['browserName'] = 'safari'
+    options = get_browser_option(cap["browserName"].lower())
+    if "browserVersion" in cap:
+        options.browser_version = cap["browserVersion"]
+    options.set_capability('bstack:options', bstack_options)
+    if cap['browserName'].lower() == 'samsung':
+        options.set_capability('browserName', 'samsung')
+    driver = webdriver.Remote(
+        command_executor=URL,
+        desired_capabilities=options)
+
    
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
