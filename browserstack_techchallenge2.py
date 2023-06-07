@@ -92,7 +92,7 @@ def tech_challenge(browser):
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
-                menu_toggle.click()
+                driver.find_element(By.ID, "primary-menu-toggle").click()
                 logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
                 logout_button.click()
                 
