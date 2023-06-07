@@ -25,14 +25,15 @@ bs_pass = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFi
 
 # Set up capabilities for each browser
 browsers = [
+    'bstack:options' : {
+        "maskCommands" : "setValues, getValues, setCookies, getCookies",
+ 	}
     {
         "os": "OS X",
         "osVersion": "Ventura",
         "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest",
-        "maskCommands" : "setValues, getValues",
-        "seleniumLogs" : "false",
         "build": BS_BUILD_NAME
     },
     {
@@ -41,8 +42,6 @@ browsers = [
         "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest",
-        "maskCommands" : "setValues, getValues",
-        "seleniumLogs" : "false",
         "build": BS_BUILD_NAME
     },
     {
@@ -53,7 +52,6 @@ browsers = [
         "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
-        "maskCommands" : "setValues, getValues",
         "seleniumLogs" : "false",
         "build": BS_BUILD_NAME
     }
