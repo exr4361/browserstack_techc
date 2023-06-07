@@ -140,10 +140,10 @@ def tech_challenge(browser):
             driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
             
- except StaleElementReferenceException:
+  except StaleElementReferenceException:
     pass
   
- except Exception as err:
+  except Exception as err:
     message = "Exception: " + str(err.__class__) + str(err.msg)
     driver.execute_script(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')      
