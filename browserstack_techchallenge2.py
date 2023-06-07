@@ -105,7 +105,7 @@ def tech_challenge(browser):
   except StaleElementReferenceException:
     pass
   # Desktop test if menu element is not found
-  except:
+  except ElementNotInteractableException:
         print("Menu element not found, you're in a desktop browser")
         try:
             # Go to login page on desktop
