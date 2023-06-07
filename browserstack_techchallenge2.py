@@ -88,7 +88,7 @@ def tech_challenge(browser):
                 invite_button = driver.find_element(By.ID, "invite-link")
                 invite_button.click()
 
-                invite_link(By.CLASS_NAME, "manage-users__invite-copyLink-text")))
+                invite_link(By.CLASS_NAME, "manage-users__invite-copyLink-text")
                 invite_url = invite_link.get_attribute('innerHTML')
                 print("URL to invite users:", invite_url)
    
