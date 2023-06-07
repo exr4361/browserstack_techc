@@ -59,6 +59,9 @@ browsers = [
     }
 ]
 
+def mask_input(input):
+    return '*' * len(input)
+
 # Run function for test 
 def tech_challenge(browser):
   driver = webdriver.Remote(
@@ -86,7 +89,7 @@ def tech_challenge(browser):
         # Set the email value
         email_input.send_keys(bs_email)
         # Execute JavaScript code to modify the password input field value without exposing it in logs
-        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_pass)
+        driver.execute_script("document.getElementById('user_password').value = arguments[0];", mask_input(bs_pass))
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
