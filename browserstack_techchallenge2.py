@@ -68,38 +68,38 @@ def tech_challenge(browser):
     
   # Mobile Test 
   try:
-    # Go to login page on mobile
-    mobile_menu = driver.find_element(By.ID, "primary-menu-toggle") # Only runs if menu element is found
-    mobile_menu.click()
-    login_button = driver.find_element(By.LINK_TEXT, "Sign in")
-    login_button.click()
+        # Go to login page on mobile
+        mobile_menu = driver.find_element(By.ID, "primary-menu-toggle") # Only runs if menu element is found
+        mobile_menu.click()
+        login_button = driver.find_element(By.LINK_TEXT, "Sign in")
+        login_button.click()
 
-    # Login using your trial credentials
-    user_input = driver.find_element(By.ID, "user_email_login")
-    user_input.send_keys(bs_email)
-    pass_input = driver.find_element(By.ID, "user_password")
-    pass_input.send_keys(bs_password)
-    pass_input.send_keys(Keys.RETURN)
+        # Login using your trial credentials
+        user_input = driver.find_element(By.ID, "user_email_login")
+        user_input.send_keys(bs_email)
+        pass_input = driver.find_element(By.ID, "user_password")
+        pass_input.send_keys(bs_password)
+        pass_input.send_keys(Keys.RETURN)
 
-    # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-    menu_toggle = driver.find_element(By.ID, "primary-menu-toggle")
-    menu_toggle.click()
-    invite_link = driver.find_element(By.ID, "invite-link")
-    invite_link.click()
+        # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
+        menu_toggle = driver.find_element(By.ID, "primary-menu-toggle")
+        menu_toggle.click()
+        invite_link = driver.find_element(By.ID, "invite-link")
+        invite_link.click()
 
-    invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
-    invite_url = driver.execute_script("return arguments[0].outerHTML;", invite_page)
-    print("URL to invite users:", invite_url)
+        invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
+        invite_url = driver.execute_script("return arguments[0].outerHTML;", invite_page)
+        print("URL to invite users:", invite_url)
 
-    # 3. Log out of BrowserStack
-    driver.find_element(By.ID, "primary-menu-toggle").click()
-    driver.find_element(By.LINK_TEXT, "Sign out").click()
+        # 3. Log out of BrowserStack
+        driver.find_element(By.ID, "primary-menu-toggle").click()
+        driver.find_element(By.LINK_TEXT, "Sign out").click()
 
-    # Mark test as passed 
-    driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
+        # Mark test as passed 
+        driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
         
-    # Desktop test if menu element is not found
-    except NoSuchElementException:
+  # Desktop test if menu element is not found
+  except NoSuchElementException:
         print("Menu element not found, you're in a desktop browser")
         try:
             # Go to login page on desktop
