@@ -93,7 +93,7 @@ def tech_challenge(browser):
    
                 # 3. Log out of BrowserStack
                 driver.find_element(By.ID, "primary-menu-toggle").click()
-                driver.find_element(By.CLASS_NAME, "sign_out_link").click()
+                driver.find_element(By.LINK_TEXT, "Sign out").click()
                 
                 # Mark test as passed
                 driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
