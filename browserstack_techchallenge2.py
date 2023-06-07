@@ -62,19 +62,46 @@ def tech_challenge(browser):
       command_executor=URL,
       desired_capabilities=browser)
 
-    # 1. Go to homepage
+  # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
   windowSize = driver.get_window_size()
   windowWidth = windowSize['width']
   try:
+    # Mobile Browser Test
     if windowWidth < 991:
         driver.find_element_by_id("primary-menu-toggle").click()
+        # Go to login page
+        login_button = driver.find_element(By.LINK_TEXT, "Sign in")
+        login_button.click()
+        
+        # Login using your trial credentials
+        user_input = driver.find_element(By.ID, "user_email_login")
+        user_input.send_keys(bs_email)
+        pass_input = driver.find_element(By.ID, "user_password")
+        pass_input.send_keys(bs_password)
+        pass_input.send_keys(Keys.RETURN)
+        
+        # 2. Retrieve share link
+        menu_toggle = driver.find_element_by_id("primary-menu-toggle")
+        menu_toggle.click()
+        invite_link = driver.find_element(By.ID, "invite-link")
+        invite_link.click()
+        
+        invite_page = driver.find_element_by_class_name("manage-users__invite-copyLink-text")
+        invite_url = invite_page.get_attribute('innerHTML')
+        print("URL to invite users:", invite_url)
+        
+         # 3. Log out of BrowserStack
+         driver.find_element(By.ID, "primary-menu-toggle").click()
+         driver.find_element(By.LINK_TEXT, "Sign out").click()
+        
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
   except:
        pass
   try:
+    # Desktop Browser Test
     if windowWidth > 991 :
         driver.find_element(By.LINK_TEXT, "Sign in").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
