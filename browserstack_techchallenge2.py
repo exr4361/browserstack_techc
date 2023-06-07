@@ -67,10 +67,9 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-    driver.find_element(By.ID, "primary-menu-toggle").isDisplayed() # Only run if menu is clickable
+    mobile_menu = driver.find_element(By.ID, "primary-menu-toggle") # Only run if menu is clickable
     try:
                 # Go to login page on mobile
-                mobile_menu = driver.find_element(By.ID, "primary-menu-toggle")
                 mobile_menu.click()
                 login_button = driver.find_element(By.LINK_TEXT, "Sign in")
                 login_button.click()
@@ -108,6 +107,7 @@ def tech_challenge(browser):
    
             
   except: # Desktop only test
+    pass
     try:
                 # Go to login page on desktop
                 login_button = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.LINK_TEXT, "Sign in")))
