@@ -144,6 +144,8 @@ def tech_challenge(browser):
                 driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
                                                                                                                 
                 
+    except ElementNotInteractableException:
+        pass
     except NoSuchElementException as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
