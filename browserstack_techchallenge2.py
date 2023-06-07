@@ -79,7 +79,7 @@ def tech_challenge(cap):
    options.set_capability('bstack:options', bstack_options)
    if cap['browserName'].lower() == 'samsung':
         options.set_capability('browserName', 'samsung')
-    driver = webdriver.Remote(
+   driver = webdriver.Remote(
         command_executor=URL,
         options=options)
 
