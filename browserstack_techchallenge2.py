@@ -96,8 +96,7 @@ def tech_challenge(browser):
             driver.find_element(By.ID, "primary-menu-toggle").click()
             driver.find_element(By.LINK_TEXT, "Sign out").click()
 
-            # Close browser and mark test as passed
-            driver.quit
+            # Mark test as passed 
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
 
         except NoSuchElementException as err:
@@ -110,6 +109,10 @@ def tech_challenge(browser):
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}') 
         except StaleElementReferenceException:
             pass
+        
+        # Close browser
+        finally:
+            driver.quit
     
   # Desktop test
   elif driver.find_element(By.ID, "primary-menu-toggle").is_displayed() == false:
@@ -138,8 +141,7 @@ def tech_challenge(browser):
             logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
             logout_button.click()
 
-            # Close browser and mark test as passed
-            driver.quit
+            # Mark test as passed
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
 
         except NoSuchElementException as err:
@@ -150,7 +152,10 @@ def tech_challenge(browser):
             message = "Exception: " + str(err.__class__) + str(err.msg)
             driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-    
+        
+        # Close browser
+        finally:
+            driver.quit
             
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
