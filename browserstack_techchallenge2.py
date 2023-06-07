@@ -82,7 +82,7 @@ def tech_challenge(browser):
         driver.execute_script("document.getElementById('user_email_login').value = arguments[0];", bs_email)
         driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_pass)
         pass_input = driver.find_element_by_id("user_password")
-        pass_input.send_keys(Keys.RETURN)
+        driver.execute_script("var event = new KeyboardEvent('keydown', { key: 'Enter' }); arguments[0].dispatchEvent(event);", pass_input)
         
         # 2. Retrieve share link
         driver.find_element_by_id("primary-menu-toggle").click()
