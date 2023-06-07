@@ -108,6 +108,7 @@ def tech_challenge(browser):
         driver.execute_script(
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}') 
     except StaleElementReferenceException:
+        pass
             
   except: # Desktop only test
     try:
