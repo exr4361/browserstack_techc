@@ -70,7 +70,7 @@ def tech_challenge(browser):
         driver.find_element_by_id("primary-menu-toggle").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
-    else:
+    elif len(driver.find_elements(By.ID, "primary-menu-toggle")) = 0:
         driver.find_element(By.LINK_TEXT, "Sign in").click()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
