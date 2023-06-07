@@ -85,14 +85,11 @@ def tech_challenge(browser):
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
                 menu_toggle = driver.find_element(By.ID, "primary-menu-toggle")
                 menu_toggle.click()
-                invite_link = driver.find_element(By.ID, "invite-link")
-                invite_link.click()
+                invite_button = driver.find_element(By.ID, "invite-link")
+                invite_button.click()
 
-                invite_button = driver.find_element(By.CLASS_NAME, "manage-users__invite-copy-cta")
-                invite_button.submit() 
-                root = tk.Tk()
-                root.withdraw()  # to hide the window
-                invite_url = root.clipboard_get()
+                invite_link(By.CLASS_NAME, "manage-users__invite-copyLink-text")))
+                invite_url = invite_link.get_attribute('innerHTML')
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
