@@ -96,7 +96,7 @@ def tech_challenge(browser):
         driver.find_element(By.LINK_TEXT, "Sign out").click()
 
         # Mark test as passed 
-        driver.quit
+        driver.quit()
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
   
   # Desktop test if menu element is not found
@@ -128,7 +128,7 @@ def tech_challenge(browser):
             logout_button.click()
 
             # Mark test as passed
-            driver.quit
+            driver.quit()
             driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
 
         except NoSuchElementException as err:
