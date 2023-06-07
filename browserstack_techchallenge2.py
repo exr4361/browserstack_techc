@@ -138,16 +138,16 @@ def tech_challenge(browser):
             driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
         
-    except Exception as err:
-        message = "Exception: " + str(err.__class__) + str(err.msg)
-        driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}') 
-    except StaleElementReferenceException:
-        pass
+  except Exception as err:
+    message = "Exception: " + str(err.__class__) + str(err.msg)
+    driver.execute_script(
+        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}') 
+  except StaleElementReferenceException:
+    pass
         
     # Close browser
-    finally:
-        driver.quit
+  finally:
+    driver.quit
         
 # Run each browser in parallel         
 for browser in browsers:
