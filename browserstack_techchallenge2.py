@@ -7,7 +7,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import tkinter as tk
 import json
 import os
 
@@ -68,10 +67,10 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
 
   try: # Mobile only test
-    driver.find_element(By.ID, "primary-menu-toggle") # Only run if menu is clickable
+    mobile_menu = driver.find_element(By.ID, "primary-menu-toggle") # Only run if menu is clickable
     try:
                 # Go to login page on mobile
-                driver.find_element(By.ID, "primary-menu-toggle")
+                mobile_menu.click()
                 login_button = driver.find_element(By.LINK_TEXT, "Sign in")
                 login_button.click()
                 
@@ -83,12 +82,13 @@ def tech_challenge(browser):
                 pass_input.send_keys(Keys.RETURN)
                 
                 # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL  
-                driver.find_element(By.ID, "primary-menu-toggle").click()
-                invite_button = driver.find_element(By.ID, "invite-link")
-                invite_button.click()
+                menu_toggle = driver.find_element(By.ID, "primary-menu-toggle")
+                menu_toggle.click()
+                invite_link = driver.find_element(By.ID, "invite-link")
+                invite_link.click()
 
-                invite_link = driver.find_element(By.XPATH, './/span[@class = "manage-users__invite-copyLink-text"]')
-                invite_url = invite_link.text
+                invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
+                invite_url = driver.execute_script("return arguments[0].outerHTML;", invite_page)
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
@@ -99,8 +99,6 @@ def tech_challenge(browser):
                 driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}') 
                                                          
                 
-    except StaleElementReferenceException:
-        pass
     except NoSuchElementException as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
@@ -109,7 +107,9 @@ def tech_challenge(browser):
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
             'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}') 
-    
+    except StaleElementReferenceException:
+        pass
+            
   except: # Desktop only test
     try:
                 # Go to login page on desktop
@@ -140,8 +140,6 @@ def tech_challenge(browser):
                 driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
                                                                                                                 
                 
-    except ElementNotInteractableException:
-        pass
     except NoSuchElementException as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
