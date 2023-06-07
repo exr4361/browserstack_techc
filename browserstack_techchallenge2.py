@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import tkinter as tk
 import json
 import os
 
@@ -88,8 +89,10 @@ def tech_challenge(browser):
                 invite_link.click()
 
                 invite_button = driver.find_element(By.CLASS_NAME, "manage-users__invite-copy-cta")
-                invite_button.click()
-                invite_url = driver.execute_script("return await navigator.clipboard.readText();"))
+                invite_button.click()  
+                root = tk.Tk()
+                root.withdraw()  # to hide the window
+                invite_url = root.clipboard_get()
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
