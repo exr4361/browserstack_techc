@@ -88,12 +88,12 @@ def tech_challenge(browser):
                 invite_link.click()
 
                 invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
-                invite_url = driver.execute_script("return arguments[0].innerHTML;", invite_page)
+                invite_url = driver.execute_script("return arguments[0].outerHTML;", invite_page)
                 print("URL to invite users:", invite_url)
    
                 # 3. Log out of BrowserStack
                 driver.find_element(By.ID, "primary-menu-toggle").click()
-                logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
+                logout_button = driver.find_element(By.CLASS_NAME, "sign_out_link")
                 logout_button.click()
                 
                 # Mark test as passed
