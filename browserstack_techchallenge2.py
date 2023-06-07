@@ -67,14 +67,11 @@ def tech_challenge(browser):
   driver.maximize_window() # Full width for desktop tests
   try:
     if len(driver.find_elements(By.ID, "primary-menu-toggle")) > 0:
-        print("Menu Visible")
+        driver.find_element_by_id("primary-menu-toggle").click()
     else:
-        print("Menu not Visible")
+        driver.find_element(By.LINK_TEXT, "Sign in").click()
   except:
        pass
-  if driver.find_element_by_id("primary-menu-toggle").is_displayed():
-    driver.find_element_by_id("primary-menu-toggle").click(2)
-    driver.quit()
 
   try: # Mobile only test
     mobile_menu = driver.find_element(By.ID, "primary-menu-toggle") # Only run if menu is clickable
