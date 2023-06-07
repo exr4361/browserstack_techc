@@ -89,7 +89,7 @@ def tech_challenge(browser):
         
         invite_url = driver.find_element_by_xpath('.//span[@class = "manage-users__invite-copyLink-text"]')
         time.sleep(1)
-        invite_page = driver.execute_script("return arguments[0].innerText;", invite_url)
+        invite_page = driver.execute_script("return arguments[0].innerHTML;", invite_url)
         print("URL to invite users:", invite_page)
         
         # 3. Log out of BrowserStack
