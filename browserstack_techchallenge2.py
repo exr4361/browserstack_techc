@@ -88,6 +88,7 @@ def tech_challenge(browser):
         invite_link.click()
         
         invite_url = driver.find_element_by_xpath('.//span[@class = "manage-users__invite-copyLink-text"]')
+        time.sleep(1)
         invite_page = driver.execute_script("return arguments[0].innerText;", invite_url)
         print("URL to invite users:", invite_page)
         
