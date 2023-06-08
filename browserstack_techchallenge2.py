@@ -85,7 +85,7 @@ def tech_challenge(browser):
         
         # 2. Retrieve share link
         driver.find_element(By.ID, "primary-menu-toggle").click()
-        invite_link = driver.find_element(By.TEXT_LINK, "Invite team")
+        invite_link = driver.find_element(By.CLASS_NAME, "invite-link")
         invite_link.click()
         
         # Find the exact span element with the share link
@@ -120,7 +120,7 @@ def tech_challenge(browser):
         pass_input.send_keys(Keys.RETURN)
                 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL 
-        invite_link = driver.find_element(By.TEXT_LINK, "Invite team")
+        invite_link = driver.find_element(By.CLASS_NAME, "invite-link")
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_link.click()
         invite_page = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
