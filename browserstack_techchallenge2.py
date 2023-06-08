@@ -59,11 +59,7 @@ def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  # Get the logger for the send_keys method
-  send_keys_logger = logging.getLogger("selenium.webdriver.remote.remote_connection")
 
-  # Disable log messages for send_keys
-  send_keys_logger.setLevel(logging.WARNING)
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
@@ -79,12 +75,13 @@ def tech_challenge(browser):
         
         # Login using your trial credentials
         # Find the email and password input fields
-
         # Set the email value
         user_input = driver.find_element_by_id("user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
+        logging.disable(logging.INFO)
         pass_input.send_keys(bs_pass)
+        logging.disable(logging.NOTSET)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
