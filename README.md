@@ -1,4 +1,4 @@
-# Browserstack Tech Challenge - Python Selenium | Legacy Manual Integration
+# Browserstack Tech Challenge - Python Selenium | Legacy
 Repository for BrowserStack Tech Challenge - 06/05/2023
 ## Prerequisite
 
