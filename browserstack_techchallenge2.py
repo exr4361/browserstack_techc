@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from cryptography.fernet import Fernet
 import logging
 import json
 import os
@@ -79,9 +80,11 @@ def tech_challenge(browser):
         user_input = driver.find_element_by_id("user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
-        logging.disable(logging.INFO)
-        pass_input.send_keys(bs_pass)
-        logging.disable(logging.NOTSET)
+        cipher_suite = Fernet(bs_pass.encode())
+        encrypted_data = cipher_suite.encrypt(b'sensitive_data_to_encrypt')
+        decrypted_data = cipher_suite.decrypt(encrypted_data)
+        pass_input.send_keys(ecrypted_data.decode())
+
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
