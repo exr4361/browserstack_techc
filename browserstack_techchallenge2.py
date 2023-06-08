@@ -2,10 +2,11 @@ from threading import Thread
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 import logging
 import json
 import os
@@ -22,22 +23,6 @@ BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
 # BrowserStack trial credentials
 bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
 bs_pass = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
-
-# Set up custom logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
-logger.addHandler(handler)
-
-# Patch the send_keys method to suppress logging
-def patched_send_keys(element, *values):
-    # Temporarily disable the logger
-    logger.disabled = True
-    # Call the original send_keys method
-    element.send_keys(*values)
-    # Re-enable the logger
-    logger.disabled = False
 
 # Set up capabilities for each browser
 browsers = [
