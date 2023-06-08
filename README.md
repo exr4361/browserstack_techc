@@ -15,24 +15,24 @@ https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configur
 
 - If your operating system of choice differs replace myType with "linux=ia32" for a 32bit Linux, "win-32" for Windows or "darwin-x64" for Mac OS X etc.
 
-  a. Linux
+  - Linux
   ```
   "linux=ia32"
   ```
-  b. Windows
+  - Windows
   ```
   "win-32"
   ```
-  c. Mac OS C
+  - Mac OS C
   ```
   "darwin-x64"
   ```
 2. Add credentials, in your Jenkins Server:
-  a. Store your username and access key from Browerstack by selecting 'Browerstack' type and set the ID to:
+  - Store your username and access key from Browerstack by selecting 'Browerstack' type and set the ID to:
   ```
   'Trial'
   ```
-  b. Store your browserstack login credentials and set the ID to:
+  - Store your browserstack login credentials and set the ID to:
   ```
   'BS_Login'
   ```
