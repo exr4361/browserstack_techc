@@ -78,7 +78,7 @@ def tech_challenge(browser):
         user_input = driver.find_element_by_id("user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
-        pass_input.send_keys(bs_password)
+        pass_input.send_keys(bs_pass)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
