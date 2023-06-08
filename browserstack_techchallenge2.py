@@ -83,7 +83,7 @@ def tech_challenge(browser):
         cipher_suite = Fernet(bs_pass.encode())
         encrypted_data = cipher_suite.encrypt(b'sensitive_data_to_encrypt')
         decrypted_data = cipher_suite.decrypt(encrypted_data)
-        pass_input.send_keys(ecrypted_data.decode())
+        pass_input.send_keys(decrypted_data.decode())
 
 
         # Trigger the "Enter" key event on the password input field
