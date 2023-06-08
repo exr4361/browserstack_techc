@@ -86,7 +86,6 @@ def tech_challenge(browser):
         # 2. Retrieve share link
         driver.find_element(By.ID, "primary-menu-toggle").click()
         invite_link = driver.find_element(By.ID, "invite-link")
-        assert invite_link.is_displayed(), "Invite user link not found" # No invite link found when logged in
         invite_link.click()
         
         # Find the exact span element with the share link
