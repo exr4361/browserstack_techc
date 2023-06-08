@@ -23,7 +23,7 @@ https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configur
   ```
   "win-32"
   ```
-  - Mac OS C
+  - Mac OS X
   ```
   "darwin-x64"
   ```
