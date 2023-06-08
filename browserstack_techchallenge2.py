@@ -6,8 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from cryptography.fernet import Fernet
-import logging
 import json
 import os
 
@@ -80,11 +78,10 @@ def tech_challenge(browser):
         user_input = driver.find_element_by_id("user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
-        # Clear the input field to ensure a clean state
-        pass_input.clear()
-
+ 
         # Execute JavaScript code to set the value of the input field without logging the actual password
-        driver.execute_script("arguments[0].value = arguments[1];", pass_input, bs_pass)
+        for character in bs_pass:
+            pass_input.send_keys(character)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
