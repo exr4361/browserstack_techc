@@ -29,11 +29,11 @@ https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configur
   ```
 2. Add your credential as type 'Browserstack' to add your username and access key and set ID to:
 ```
-'BS_Login'
+'Trial'
 ```
 3. Add your browserstack login credentials from your Jenkins server and set the ID:
 ```
-'Trial'
+'BS_Login'
 ```
 4. Create a pipeline with definition as "Pipeline script from SCM"
 
