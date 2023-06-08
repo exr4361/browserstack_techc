@@ -15,27 +15,28 @@ https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configur
 
 - If your operating system of choice differs replace myType with "linux=ia32" for a 32bit Linux, "win-32" for Windows or "darwin-x64" for Mac OS X etc.
 
-  - Linux
+  a. Linux
   ```
   "linux=ia32"
   ```
-  - Windows
+  b. Windows
   ```
   "win-32"
   ```
-  - Mac OS C
+  c. Mac OS C
   ```
   "darwin-x64"
   ```
-2. Add your credential as type 'Browserstack' to add your username and access key and set ID to:
-```
-'Trial'
-```
-3. Add your browserstack login credentials from your Jenkins server and set the ID:
-```
-'BS_Login'
-```
-4. Create a pipeline with definition as "Pipeline script from SCM"
+2. Add credentials, in your Jenkins Server:
+  a. Store your username and access key from Browerstack by selecting 'Browerstack' type and set the ID to:
+  ```
+  'Trial'
+  ```
+  b. Store your browserstack login credentials and set the ID to:
+  ```
+  'BS_Login'
+  ```
+3. Create a pipeline and select the definition as "Pipeline script from SCM"
 
   - Select 'git' in the SCM dropdown and add the following Repository URL:
   ```
@@ -46,6 +47,6 @@ https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configur
   */main
   ```
   - Click "Save"
-5. Run the pipepline by clicking "Build Now"
+4. Run the pipepline by clicking "Build Now"
 
 
