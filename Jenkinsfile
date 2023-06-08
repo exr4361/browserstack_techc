@@ -1,10 +1,10 @@
-def myType = "darwin-x64"
 pipeline {
    agent any
    stages {
          stage('setup') {
           environment {
                    BS_Credentials = credentials('Trial')
+                   myType = "darwin-x64"
                }
            steps {
              browserstack(credentialsId: 'BS_Creds', localConfig: [localOptions: '', localPath: '']) {
