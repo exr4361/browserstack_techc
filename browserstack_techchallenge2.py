@@ -30,6 +30,7 @@ browsers = [
         "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest",
+        "seleniumLogs" : "false",
         "buildName": BS_BUILD_NAME
     },
     {
@@ -38,6 +39,7 @@ browsers = [
         "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest",
+        "seleniumLogs" : "false",
         "buildName": BS_BUILD_NAME
     },
     {
@@ -48,6 +50,8 @@ browsers = [
         "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
+        "seleniumLogs" : "false",
+        "appiumLogs": "false",
         "maskCommands" : "setValues, getValues, setCookies, getCookies",
         "buildName": BS_BUILD_NAME,
     }
