@@ -68,8 +68,9 @@ def tech_challenge(browser):
   try:
     # Mobile Browser Test
     if windowWidth < 991:
-        driver.find_element_by_id("primary-menu-toggle").click()
+        
         # Go to login page
+        driver.find_element_by_id("primary-menu-toggle").click()
         login_button = driver.find_element(By.LINK_TEXT, "Sign in")
         login_button.click()
         
@@ -99,8 +100,12 @@ def tech_challenge(browser):
         
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
-  except:
-       pass
+        
+  except Exception as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}'):
+
   try:
     # Desktop Browser Test
     if windowWidth > 991 :
@@ -116,10 +121,10 @@ def tech_challenge(browser):
         pass_input.send_keys(Keys.RETURN)
                 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL 
-        invite_link = driver.find_element(By.ID, "invite-link")
+        invite_link = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.ID, "invite-link")))
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_link.click()
-        invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
+        invite_page = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
         invite_url = invite_page.get_attribute('innerHTML')
         print("URL to invite users:", invite_url)
                 
@@ -131,8 +136,11 @@ def tech_challenge(browser):
         # Mark test as passed
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
-  except:
-    pass
+        
+  except Exception as err:
+        message = "Exception: " + str(err.__class__) + str(err.msg)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}'):
 
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
