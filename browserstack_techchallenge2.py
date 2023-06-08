@@ -52,7 +52,7 @@ browsers = [
         "deviceOrientation": "portrait",
         "seleniumLogs" : "false",
         "appiumLogs": "false",
-        "maskCommands" : "setValues, getValues, setCookies, getCookies",
+        "browserstack.maskCommands" = "setValues
         "buildName": BS_BUILD_NAME,
     }
 ]
