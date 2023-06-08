@@ -80,12 +80,11 @@ def tech_challenge(browser):
         user_input = driver.find_element_by_id("user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
-        encrypted_password = bs_pass
-        key = Fernet.generate_key()
+        # Clear the input field to ensure a clean state
+        pass_input.clear()
 
-        cipher_suite = Fernet(key)
-        decrypted_password = cipher_suite.decrypt(encrypted_password.encode()).decode()
-        driver.execute_script("arguments[0].value = arguments[1];", pass_input, decrypted_password)
+        # Execute JavaScript code to set the value of the input field without logging the actual password
+        driver.execute_script("arguments[0].value = arguments[1];", pass_input, bs_pass)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
