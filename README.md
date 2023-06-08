@@ -29,7 +29,7 @@ To setup Browserstack Plugin in jenkins reference the following link:
   ```
 2. Add your credential as type 'Browserstack' to add your username and access key and set ID to:
 ```
-'BS_Creds'
+'BS_Login'
 ```
 3. Add your browserstack login credentials from your Jenkins server and set the ID:
 ```
