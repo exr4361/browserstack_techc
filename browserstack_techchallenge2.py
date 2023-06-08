@@ -50,7 +50,7 @@ browsers = [
         "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
-        "browserstack.maskCommands" = "setValues,
+        "browserstack.maskCommands": "setValues",
         "buildName": BS_BUILD_NAME,
     }
 ]
