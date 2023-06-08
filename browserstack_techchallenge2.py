@@ -84,7 +84,7 @@ def tech_challenge(browser):
         pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
-        driver.find_element(By.ID, "primary-menu-toggle").click()
+        driver.find_element_by_id("primary-menu-toggle").click()
         invite_link = driver.find_element(By.CLASS_NAME, "invite-link")
         invite_link.click()
         
