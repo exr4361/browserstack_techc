@@ -123,8 +123,9 @@ def tech_challenge(browser):
         invite_link = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CLASS_NAME, "invite-link")))
         assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
         invite_link.click()
-        invite_page = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, "manage-users__invite-copyLink-text")))
-        invite_url = invite_page.get_attribute('innerHTML')
+        # Find the exact span element with the share link
+        invite_url = WebDriverWait(driver, 3).until(EC.visibility_of_element_located((By.XPATH('.//span[@class = "manage-users__invite-copyLink-text"]')))
+        invite_page = invite_url.get_property('textContent') # Get the innerHTML of the span element
         print("URL to invite users:", invite_url)
                 
         # 3. Log out of BrowserStack
