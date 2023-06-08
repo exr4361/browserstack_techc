@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.remote.webelement import WebElement
 import logging
 import json
 import os
@@ -58,17 +57,18 @@ browsers = [
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# Create a custom WebElement class to override send_keys method
-class CustomWebElement(WebElement):
-    def send_keys(self, *value):
-        # Hide log messages for send_keys
-        logging.disable(logging.INFO)
-        super().send_keys(*value)
-        logging.disable(logging.NOTSET)
 
 # Run function for test 
 def tech_challenge(browser):
-  driver = webdriver.Remote(
+      # Create a custom WebDriver class to override send_keys method
+  class CustomWebDriver(webdriver.Remote):
+        def send_keys(self, element, *value):
+            # Hide log messages for send_keys
+            logging.disable(logging.INFO)
+            element.send_keys(*value)
+            logging.disable(logging.NOTSET)
+
+  driver = CustomWebDriver(
       command_executor=URL,
       desired_capabilities=browser)
   driver.set_element_class(CustomWebElement)
