@@ -80,8 +80,8 @@ def tech_challenge(browser):
         pass_input = driver.find_element_by_id("user_password")
  
         # Execute JavaScript code to set the value of the input field without logging the actual password
-        for character in bs_pass:
-            pass_input.send_keys(character)
+        script = f"document.getElementById('user_password').value = '{bs_pass}';"
+        driver.execute_script(script)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
