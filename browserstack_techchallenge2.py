@@ -30,7 +30,7 @@ browsers = [
         "sessionName": "BStack parallel python 1",
         "browserName": "firefox",
         "browserVersion": "latest",
-        "seleniumLogs" : "false",
+        "browserstack.maskCommands": "setValues",
         "buildName": BS_BUILD_NAME
     },
     {
@@ -39,7 +39,7 @@ browsers = [
         "sessionName": "BStack parallel python 2",
         "browserName": "chrome",
         "browserVersion": "latest",
-        "seleniumLogs" : "false",
+        "browserstack.maskCommands": "setValues",
         "buildName": BS_BUILD_NAME
     },
     {
@@ -75,15 +75,10 @@ def tech_challenge(browser):
         login_button.click()
         
         # Login using your trial credentials
-        # Find the email and password input fields
-        # Set the email value
         user_input = driver.find_element_by_id("user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element_by_id("user_password")
- 
-        # Execute JavaScript code to set the value of the input field without logging the actual password
-        script = f"document.getElementById('user_password').value = '{bs_pass}';"
-        driver.execute_script(script)
+        pass_input.send_keys(bs_password)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
