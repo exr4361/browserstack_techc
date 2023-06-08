@@ -75,7 +75,6 @@ def tech_challenge(cap):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  webdriver.remote.webelement.WebElement.send_keys = patched_send_keys
 
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
