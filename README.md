@@ -15,9 +15,9 @@ To setup Browserstack Plugin in jenkins reference the following link:
 ## Steps to run test session
 
 - Update jenkinsfile operating system myType variable in environment if needed:
-```
+
 If your operating system of choice differs replace myType with "linux=ia32" for a 32bit Linux, "win-32" for Windows or "darwin-x64" for Mac OS X etc.
-```
+
 a. Linux
 ```
 "linux=ia32"
