@@ -54,24 +54,16 @@ browsers = [
     }
 ]
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-
 # Run function for test 
 def tech_challenge(browser):
-      # Create a custom WebDriver class to override send_keys method
-  class CustomWebDriver(webdriver.Remote):
-        def send_keys(self, element, *value):
-            # Hide log messages for send_keys
-            logging.disable(logging.INFO)
-            element.send_keys(*value)
-            logging.disable(logging.NOTSET)
-
-  driver = CustomWebDriver(
+  driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-  driver.set_element_class(CustomWebElement)
+  # Get the logger for the send_keys method
+  send_keys_logger = logging.getLogger("selenium.webdriver.remote.remote_connection")
+
+  # Disable log messages for send_keys
+  send_keys_logger.setLevel(logging.WARNING)
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
