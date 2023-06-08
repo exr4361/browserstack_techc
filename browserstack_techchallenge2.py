@@ -23,6 +23,22 @@ BS_BUILD_NAME = os.environ.get("BROWSERSTACK_BUILD_NAME")
 bs_email = os.getenv("BS_Credentials_USR")  # BrowserStack email from Jenkinsfile
 bs_pass = os.getenv("BS_Credentials_PSW")  # BrowerStack password from JenkinsFile
 
+# Set up custom logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.StreamHandler()
+handler.setLevel(logging.INFO)
+logger.addHandler(handler)
+
+# Patch the send_keys method to suppress logging
+def patched_send_keys(element, *values):
+    # Temporarily disable the logger
+    logger.disabled = True
+    # Call the original send_keys method
+    element.send_keys(*values)
+    # Re-enable the logger
+    logger.disabled = False
+
 # Set up capabilities for each browser
 browsers = [
     {
@@ -54,17 +70,12 @@ browsers = [
     }
 ]
 
-# Hide execute_script agrs
-def log_script(script, *args):
-    driver.execute_script("console.log = function() {};")
-    driver.execute_script(script, *args)
-    driver.execute_script("console.log = console._log;")
-
 # Run function for test 
 def tech_challenge(cap):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
+  webdriver.remote.webelement.WebElement.send_keys = patched_send_keys
 
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
@@ -81,13 +92,12 @@ def tech_challenge(cap):
         
         # Login using your trial credentials
         # Find the email and password input fields
-        pass_input = driver.find_element(By.ID, "user_password")
 
         # Set the email value
-        logging.getLogger('selenium').setLevel(logging.WARNING)
-        # Execute JavaScript code to modify the password input field value without exposing it in logs
-        driver.execute_script("document.getElementById('user_email_login').value = arguments[0];", bs_email)
-        driver.execute_script("document.getElementById('user_password').value = arguments[0];", bs_pass)
+         user_input = driver.find_element_by_id("user_email_login")
+        user_input.send_keys(bs_email)
+        pass_input = driver.find_element_by_id("user_password")
+        pass_input.send_keys(bs_password)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
