@@ -15,18 +15,18 @@ To setup Browserstack Plugin in jenkins reference the following link:
 
 - If your operating system of choice differs replace myType with "linux=ia32" for a 32bit Linux, "win-32" for Windows or "darwin-x64" for Mac OS X etc.
 
-a. Linux
-```
-"linux=ia32"
-```
-b. Windows
-```
-"win-32"
-```
-c. Mac OS C
-```
-"darwin-x64"
-```
+  - Linux
+  ```
+  "linux=ia32"
+  ```
+  - Windows
+  ```
+  "win-32"
+  ```
+  - Mac OS C
+  ```
+  "darwin-x64"
+  ```
 2. Add your credential as type 'Browserstack' to add your username and access key and set ID to:
 ```
 'BS_Creds'
