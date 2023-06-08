@@ -6,7 +6,7 @@ Repository for BrowserStack Tech Challenge - 06/05/2023
 2. Install and configure Browserstack Plugin in Jenkins
 To setup Browserstack Plugin in jenkins reference the following link:
 ```
-(https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configure-the-browserstack-jenkins-plugin)
+https://www.browserstack.com/docs/automate/selenium/jenkins#install-and-configure-the-browserstack-jenkins-plugin
 ```
 
 ## Steps to run test session
