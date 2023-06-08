@@ -67,7 +67,7 @@ class CustomWebElement(WebElement):
         logging.disable(logging.NOTSET)
 
 # Run function for test 
-def tech_challenge(cap):
+def tech_challenge(browser):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
