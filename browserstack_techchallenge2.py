@@ -85,10 +85,12 @@ def tech_challenge(browser):
         # 2. Retrieve share link
         driver.find_element(By.ID, "primary-menu-toggle").click()
         invite_link = driver.find_element(By.ID, "invite-link")
+        assert invite_link.is_displayed(), "Invite user link not found" # No invite link found when logged in
         invite_link.click()
         
+        # Find the exact span element with the share link
         invite_url = driver.find_element_by_xpath('.//span[@class = "manage-users__invite-copyLink-text"]')
-        invite_page = invite_url.get_property('textContent')
+        invite_page = invite_url.get_property('textContent') # Get the innerHTML of the span element
         print("URL to invite users:", invite_page)
         
         # 3. Log out of BrowserStack
@@ -102,7 +104,31 @@ def tech_challenge(browser):
   try:
     # Desktop Browser Test
     if windowWidth > 991 :
+        
+        # Go to login page on desktop
         driver.find_element(By.LINK_TEXT, "Sign in").click()
+    
+        # Login using your trial credentials
+        user_input = driver.find_element(By.ID, "user_email_login")
+        user_input.send_keys(bs_email)
+        pass_input = driver.find_element(By.ID, "user_password")
+        pass_input.send_keys(bs_password)
+        pass_input.send_keys(Keys.RETURN)
+                
+        # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL 
+        invite_link = driver.find_element(By.ID, "invite-link")
+        assert invite_link.is_displayed(), "Invite user link not found on the homepage" # No invite link found in homepage when logged in
+        invite_link.click()
+        invite_page = driver.find_element(By.CLASS_NAME, "manage-users__invite-copyLink-text")
+        invite_url = invite_page.get_attribute('innerHTML')
+        print("URL to invite users:", invite_url)
+                
+        # 3. Log out of BrowserStack
+        user_account = driver.find_element(By.ID, "account-menu-toggle").click() # Wait for the dropdown menu to open
+        logout_button = driver.find_element(By.TEXT_LINK, "Sign out")
+        logout_button.click()
+                
+        # Mark test as passed
         driver.execute_script('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test passed"}}')
         driver.quit()
   except:
