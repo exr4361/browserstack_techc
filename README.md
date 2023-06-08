@@ -27,9 +27,15 @@ c. Mac OS C
 ```
 "darwin-x64"
 ```
-2. Add your credential as type 'Browserstack' to add your username and access key and set ID to 'BS_Creds'
-3. Add your browserstack login credentials from your Jenkins server and set the ID 'Trial'
-4. Create a pipeline with definition as "Pipeline script from SCM"
+2. Add your credential as type 'Browserstack' to add your username and access key and set ID to:
+```
+'BS_Creds'
+```
+4. Add your browserstack login credentials from your Jenkins server and set the ID:
+```
+'Trial'
+```
+6. Create a pipeline with definition as "Pipeline script from SCM"
 
   - Select 'git' in the SCM dropdown and add the following Repository URL:
   ```
