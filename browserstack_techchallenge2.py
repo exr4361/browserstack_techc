@@ -104,7 +104,7 @@ def tech_challenge(browser):
   except Exception as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
-            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}'):
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
 
   try:
     # Desktop Browser Test
@@ -140,7 +140,7 @@ def tech_challenge(browser):
   except Exception as err:
         message = "Exception: " + str(err.__class__) + str(err.msg)
         driver.execute_script(
-            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}'):
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
 
 for browser in browsers:
   Thread(target=tech_challenge, args=(browser,)).start()
