@@ -112,7 +112,7 @@ def tech_challenge(browser):
         user_input = driver.find_element(By.ID, "user_email_login")
         user_input.send_keys(bs_email)
         pass_input = driver.find_element(By.ID, "user_password")
-        pass_input.send_keys(bs_password)
+        pass_input.send_keys(bs_pass)
         pass_input.send_keys(Keys.RETURN)
                 
         # 2. Make sure that the homepage includes a link to invite users and retrieve the link’s URL 
