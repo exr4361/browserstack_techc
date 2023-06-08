@@ -20,7 +20,8 @@ If your operating system of choice differs replace myType with "linux=ia32" for 
   https://github.com/exr4361/browserstack_techc.git
   ```
   b. In the Branches to build section change the Branch Specifier:
-  ```*/main
+  ```
+  */main
   ```
   c. Click "Save"
 - Run the pipepline by clicking "Build Now"
