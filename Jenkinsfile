@@ -3,12 +3,12 @@ pipeline {
    stages {
          stage('setup') {
           environment {
-                   BS_Credentials = credentials('Trial')
-                   myType = "darwin-x64"
+                   BS_Login = credentials('Trial')
+                   // Type of operating system
+                   myType = 'darwin-x64'
                }
            steps {
              browserstack(credentialsId: 'BS_Creds', localConfig: [localOptions: '', localPath: '']) {
-                 echo 'hello bs'
                  // BrowserStack Local configuration
                  sh 'curl -sS https://www.browserstack.com/browserstack-local/BrowserStackLocal-$myType.zip > /var/tmp/BrowserStackLocal.zip'
                  sh "unzip -o /var/tmp/BrowserStackLocal.zip -d /var/tmp"
