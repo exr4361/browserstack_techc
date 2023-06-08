@@ -47,7 +47,6 @@ browsers = [
         "osVersion": "12.0",
         "sessionName": "BStack parallel python 3",
         "browserName": "samsung",
-        "real_mobile": "true",
         "browserVersion": "latest",
         "deviceOrientation": "portrait",
         "browserstack.maskCommands": "setValues",
@@ -75,16 +74,16 @@ def tech_challenge(browser):
         login_button.click()
         
         # Login using your trial credentials
-        user_input = driver.find_element_by_id("user_email_login")
+        user_input = driver.find_element(By.ID, "user_email_login")
         user_input.send_keys(bs_email)
-        pass_input = driver.find_element_by_id("user_password")
+        pass_input = driver.find_element(By.ID, "user_password")
         pass_input.send_keys(bs_pass)
 
         # Trigger the "Enter" key event on the password input field
         pass_input.send_keys(Keys.RETURN)
         
         # 2. Retrieve share link
-        driver.find_element_by_id("primary-menu-toggle").click()
+        driver.find_element(By.ID, "primary-menu-toggle").click()
         invite_link = driver.find_element(By.ID, "invite-link")
         invite_link.click()
         
