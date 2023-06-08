@@ -31,11 +31,11 @@ To setup Browserstack Plugin in jenkins reference the following link:
 ```
 'BS_Creds'
 ```
-4. Add your browserstack login credentials from your Jenkins server and set the ID:
+3. Add your browserstack login credentials from your Jenkins server and set the ID:
 ```
 'Trial'
 ```
-6. Create a pipeline with definition as "Pipeline script from SCM"
+4. Create a pipeline with definition as "Pipeline script from SCM"
 
   - Select 'git' in the SCM dropdown and add the following Repository URL:
   ```
