@@ -70,12 +70,23 @@ browsers = [
     }
 ]
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Create a custom WebElement class to override send_keys method
+class CustomWebElement(WebElement):
+    def send_keys(self, *value):
+        # Hide log messages for send_keys
+        logging.disable(logging.INFO)
+        super().send_keys(*value)
+        logging.disable(logging.NOTSET)
+
 # Run function for test 
 def tech_challenge(cap):
   driver = webdriver.Remote(
       command_executor=URL,
       desired_capabilities=browser)
-
+  driver.set_element_class(CustomWebElement)
   # 1. Go to homepage
   driver.get("https://www.browserstack.com/")
   driver.maximize_window() # Full width for desktop tests
