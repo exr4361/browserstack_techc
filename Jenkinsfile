@@ -6,7 +6,7 @@
                    BS_Credentials = credentials('Trial')
                }
           script {
-                   def type = 'darwin-x64' 
+                   type = 'darwin-x64' 
                }
            steps {
              browserstack(credentialsId: 'BS_Creds', localConfig: [localOptions: '', localPath: '']) {
